@@ -1,0 +1,21 @@
+/* product container */
+.pro-container label {
+    margin-top: 5px;
+}
+
+.btn-basic {
+    width: 150px;
+    justify-self: center;
+    height: 30px;
+    margin-top: 5px;
+    border: 1px solid #333;
+    font-family: "Roboto", sans-serif;
+    background-color: transparent;
+}
+
+.btn-basic:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    width: 200px;
+    transition: 0.1s;
+}

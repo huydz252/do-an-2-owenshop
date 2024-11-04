@@ -1,13 +1,22 @@
-const express = require('express') //import express
-const app = express() // tạo express application
-const port = 3000 // init port
-//khai báo routes
-//req (request), res(response) là 2 object trong môi trường Node.js
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-//run server trên port đã khởi tạo trước đấy
-//nạp các thông tin khai báo ở trên rồi chạy (ví dụ như nạp routes)
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+require('dotenv').config();
+const express = require('express');
+const configViewEngine = require('./config/viewEngine');
+const route = require('./routes/web');
+const initAPIRoute = require('./routes/API')
+
+const connection = require('./config/database');
+
+const app = express()
+const port = process.env.PORT || 2302;
+const hostname = process.env.HOST_NAME || 'localhost';
+
+configViewEngine(app);
+initAPIRoute(app);
+//config req.body
+app.use(express.json()) //for json
+app.use(express.urlencoded({ extended: true })) //for form data
+
+app.use('/', route)
+app.listen(port, hostname, () => {
+    console.log(`server running on {`, hostname, ',', port, '}');
 })
