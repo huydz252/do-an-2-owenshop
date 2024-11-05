@@ -6,7 +6,7 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
-    <link rel="stylesheet" href="/css/shop.css">
+    <link rel="stylesheet" href="/css/productDetails.css">
     <link rel="stylesheet" href="/css/root.css">
 </head>
 
@@ -38,73 +38,35 @@
             <li><a href="#">CONTACT</a></li>
         </ul>
 
-        <div class="shop-content">
-            <div class="menu">
-                <div class="page">
-                    <a href="/">Home</a>
-                    <i class="fa-solid fa-chevron-right" style="color: #000000;"></i>
-                    <a href="/shop" id="labelAll">All Products</a>
-                    <p id="labelFea">Feature Items</p>
-                </div>
-                <div class="browser-by">
-                    <h3>Browser By</h3>
-                    <hr>
-                    <a href=""></a>
-                    <p class="target" id="all">All products</p>
-                    <p id="fea">Featured Items</p>
-                    <h3>Filter By</h3>
-                    <hr>
-                    <label for="price">Price</label>
-                    <hr>
-                    <label for="color">Color</label>
-                    <label for="Size">Size</label>
-                </div>
+        <div class="proDetails">
+            <div>
+                <p>Home</p>
+                <i class="fa-solid fa-chevron-right" style="color: #000000;"></i>
+                <p>Product Name</p>
             </div>
-            <div id="all-products">
-                <h1>All Products</h1>
-                <div class="all-products-content">
-                    <% for(var i=0; i < rows.length; i++) { %>
-                        <div class="pro-container">
-                            <img src="/imgs/products/<%=rows[i].image%>" alt="">
-                            <label for="name">
-                                <%=rows[i].name%>
-                            </label>
-                            <label for="price">
-                                $<%=rows[i].price%>
-                            </label>
-                            <div class="div-btn">
-                                <a href="/getProductDetails/<%=rows[i].id%>"><button type="button" class="btn-basic">See
-                                        More</button></a>
-                            </div>
-                        </div>
-                        <% } %>
+            <div class="details">
+                <div class="img">
+
                 </div>
+                <form method="post" class="info">
+                    <label for="name">
+                        <%=rows[0].name%>
+                    </label>
+                    <label for="id">id: <%=rows[0].id%></label>
+                    <label for="price">
+                        $<%=rows[0].price%>
+                    </label>
+                    <label for="size">Size</label>
+                    <select name="size" id="size">
+                        <option value="-1" class="optionSize">Size</option>
+                        <option value="0">Small</option>
+                        <option value="1">Medium</option>
+                        <option value="2">large</option>
+                    </select>
+                    <label for="quantity">Quantity</label>
 
-
+                </form>
             </div>
-            <div id="feature-products">
-                <h1>Feature Items</h1>
-                <div class="fearute-products-content">
-                    <% for(var i=0; i < 2; i++) { %>
-                        <div class="pro-container">
-                            <img src="/imgs/products/<%=rows[i].image%>" alt="">
-                            <label for="name">
-                                <%=rows[i].name%>
-                            </label>
-                            <label for="price">
-                                $<%=rows[i].price%>
-                            </label>
-                            <div class="div-btn">
-                                <a href="/getProductDetails/<%=rows[i].id%>"><button type="button" class="btn-basic">See
-                                        More</button></a>
-                            </div>
-                        </div>
-                        <% } %>
-                </div>
-
-
-            </div>
-
         </div>
 
         <!-- footer -->

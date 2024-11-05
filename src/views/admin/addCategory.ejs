@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm Danh Mục</title>
+</head>
+
+<body>
+    <h1>Thêm Danh Mục</h1>
+    <form action="/admin/addCategoryForm/addCategory" method="POST">
+        <label for="name">Tên Danh Mục:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="description">Mô Tả:</label>
+        <textarea id="description" name="description"></textarea>
+
+        <button type="submit">Thêm Danh Mục</button>
+    </form>
+</body>
+
+</html>

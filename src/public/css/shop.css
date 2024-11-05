@@ -1,0 +1,92 @@
+.shop-content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin: 20px 0 0 0;
+}
+
+.menu {
+    flex: 0.8;
+    margin: 30px 10px auto auto;
+}
+
+.page {
+    width: 65%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#labelAll {
+    display: block;
+}
+
+#labelFea {
+    display: none;
+}
+
+.browser-by {
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.browser-by p {
+    flex: 0 1 auto;
+    margin: 10px 0;
+}
+
+.browser-by p:hover {
+    cursor: pointer;
+}
+
+#all-products {
+    display: flex;
+    flex: 4;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+.all-products-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 30px auto 0 auto;
+}
+
+#feature-products {
+    display: none;
+    flex: 4;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
+}
+
+.fearute-products-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 30px auto 0 auto;
+}
+
+.pro-container {
+    width: 32%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pro-container img {
+    width: 100%;
+}
+
+.div-btn {
+    width: 100%;
+}
