@@ -1,38 +1,43 @@
 const connection = require("../config/database");
+const Product = require('../models/product');
+const Category = require('../models/category');
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.findAll({
-            attributes: ['id', 'name', 'description', 'price', 'stock']
+            attributes: ['id', 'name', 'description', 'price', 'stock', 'image_url']
         })
-        return res.json(products);
+        return products;
     } catch (error) {
         console.error('Error fetching products:', error);
         res.status(500).json({ message: 'Error fetching products' });
     }
 }
 const getProductById = async (req, res) => {
-    const productId = req.params.id; // Lấy id từ params
+    const productId = req.params.id;
 
     try {
         const product = await Product.findOne({
             where: { id: productId },
-            attributes: ['id', 'name', 'price', 'description'], // Chỉ định các trường cần lấy
+            attributes: ['id', 'name', 'description', 'price', 'stock', 'image_url'],
         });
-
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-
-        return res.json(product);
+        return product;
     } catch (error) {
         console.error('Error fetching product:', error);
         res.status(500).json({ message: 'Error fetching product' });
     }
 };
 
-
+const updateCartNumber = (req, res) => {
+    let cartCount = 0;
+    const cart = req.session.cart || []
+    cart.forEach(element => {
+        cartCount += element.quantity;
+    });
+    return cartCount;
+}
 
 
 module.exports = {
     getAllProducts, getProductById,
+    updateCartNumber
 }

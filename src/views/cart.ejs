@@ -1,0 +1,209 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owen Shop</title>
+    <!-- font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alkatra&family=Berkshire+Swash&family=Comic+Neue:wght@700&family=Gentium+Book+Plus:wght@400;700&family=Lato:ital,wght@0,400;0,700;0,900;1,700&family=Lexend+Deca:wght@500&family=Lexend:wght@500&family=Montserrat:wght@500&family=Open+Sans:wght@500;800&family=Roboto:wght@100;400&family=Sue+Ellen+Francisco&family=Work+Sans:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900;&display:swap">
+    <!-- css -->
+    <link rel="stylesheet" href="/css/reuse/root.css">
+    <link rel="stylesheet" href="/css/reuse/header-nav.css">
+    <link rel="stylesheet" href="/css/reuse/footer.css">
+    <link rel="stylesheet" href="/css/reuse/resposive.css">
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+
+<body>
+    <!-- header -->
+    <section id="header">
+        <a href="#"><img src="imgs/logo/logo.png"></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+                <li id="cart"><a class="active" href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
+                    <span id="quantity">
+                        <%=cartCount%>
+                    </span>
+                </li>
+                <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="/cart"><i class="fal fa-shopping-bag"></i>
+                <span class="quantity">
+                    <%=cartCount%>
+                </span>
+            </a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+
+
+    <!-- Cart Page -->
+    <section id="cart_content" class="section-p1">
+        <!-- top -->
+        <section id="page-header" class="about-header">
+            <span><a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> OWEN </a> / <a
+                    href="/cart">CART</a></span>
+
+        </section>
+        <table width="100%" class="product-table">
+            <%if(cart.length>0){%>
+                <thead>
+                    <tr>
+                        <td style="color: red;">DELETE</td>
+                        <td>PRODUCT</td>
+                        <td>NAME</td>
+                        <td>PRICE</td>
+                        <td>QUANTITY</td>
+                        <td>SIZE</td>
+                        <td>TOTAL PRICE</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <% for(var i=0; i < cart.length; i++) { %>
+                        <tr>
+                            <td id="delete-all">
+                                <a href="/cart/deleteProduct/<%=cart[i].id%>"><i
+                                        class="fa-regular fa-trash-can"></i></a>
+                            </td>
+                            <td>
+                                <a href="/shop/getProDetails/<%=cart[i].id%>"><img
+                                        src="/imgs/products/<%=cart[i].image_url%>" alt=""></a>
+                            </td>
+                            <td>
+                                <%=cart[i].name%>
+                            </td>
+                            <td>
+                                $<%=cart[i].price%>
+                            </td>
+                            <td>
+                                <div class="quantity-selector">
+
+                                    <input id="count" type="number" value="<%=cart[i].quantity%>" min="0">
+
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    <%=cart[i].size%>
+                                </span>
+                            </td>
+                            <td>
+                                <span>$<%=cart[i].quantity*cart[i].price%></span>
+                            </td>
+                        </tr>
+                        <%}%>
+                            <%}else{%>
+                                <h3>There are no products</h3>
+                                <%}%>
+                </tbody>
+
+        </table>
+    </section>
+
+    <!-- Cart Add -->
+    <section id="cart-add" class="section-p1">
+        <div class="coupon">
+            <div>
+                <h4>Áp dụng phiếu giảm giá</h4>
+                <input type="text" placeholder="Nhập mã giảm giá">
+                <button>Áp dụng</button>
+            </div>
+            <div>
+                <h4>tổng giỏ hàng</h4>
+                <table class="totalCart">
+                    <% var totalCart=0; for(var i=0; i < cart.length; i++) { %>
+                        <% totalCart+=parseInt(cart[i].quantity*cart[i].price)%>
+                            <%}%>
+                                <span>
+                                    $<%=totalCart%>
+                                </span>
+                </table>
+                <button id="pay">
+                    <a href="#modal__display">Tiến Hành Kiểm Tra</a>
+                </button>
+            </div>
+        </div>
+    </section>
+    </div>
+
+    <!-- footer -->
+    <footer class="section-p1">
+
+        <div class="col">
+            <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
+            <h4>Contact</h4>
+            <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
+            <p><strong>Email: </strong>252quanghuy@gmail.com</p>
+            <p><strong>Phone:</strong>0813118974</p>
+            <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <a href="https://www.facebook.com/huydz.252">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="sec">
+            <div class="col">
+                <h4>About</h4>
+                <a href="#">About Us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Condition</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Account</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track my Order</a>
+                <a href="#">Help</a>
+
+            </div>
+
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play</p>
+
+                <div class="row">
+                    <img src="/imgs/pay/app.jpg" alt="">
+                    <img src="/imgs/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="/imgs/pay/pay.png" alt="">
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

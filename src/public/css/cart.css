@@ -1,0 +1,163 @@
+body {
+    background-color: #f0f0f0 !important;
+}
+
+
+
+#cart_content {
+    margin-top: 90px;
+    justify-self: center;
+    width: 85%;
+}
+
+#page-header {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+#cart_content table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+#cart_content table thead {
+    background-color: #e3e7f3;
+    color: rgb(0, 0, 0);
+
+}
+
+#cart_content table thead td {
+    padding: 15px 5px;
+    text-align: center;
+}
+
+#cart_content table tbody {
+    padding: 5px 10px 20px 10px;
+}
+
+td {
+    padding: 5px 0;
+}
+
+#cart_content img {
+    width: 130px;
+}
+
+.coupon {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.coupon div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+.coupon div:nth-child(1) input {
+    width: 80%;
+    padding: 12px 15px;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #e1e1e1;
+}
+
+.coupon div:nth-child(1) button {
+    background-color: #0f6e2f;
+    color: white;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#pay a {
+    width: 100%;
+    height: 100%;
+    padding: 10px 30px;
+    color: white;
+}
+
+.coupon div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    border: 1px solid #e1e1e1;
+    padding: 20px;
+}
+
+.coupon div:nth-child(2) h4 {
+    padding-bottom: 15px;
+}
+
+.coupon div:nth-child(2) td {
+    padding: 6px 0;
+}
+
+.coupon div:nth-child(2) button {
+    background-color: #0f6e2f;
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    height: 40px;
+    margin-top: 20px;
+}
+
+.des:hover {
+    cursor: pointer;
+}
+
+#quantityInput {
+    width: 50px;
+    height: 30px;
+}
+
+/* in cart  */
+.quantity-selector {
+    display: flex;
+    justify-content: center;
+}
+
+#decrease,
+#increase,
+#count {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ccc;
+}
+
+#decrease {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px 0 0 10px;
+}
+
+#increase {
+    width: 30px;
+    height: 30px;
+    border-radius: 0 10px 10px 0;
+}
+
+#count {
+    width: 80px;
+    height: 29px;
+    text-align: center;
+    border: none;
+}
+
+#delete-all {
+    width: 40px;
+    height: 40px;
+}
+
+#delete-all:hover {
+    cursor: pointer;
+}

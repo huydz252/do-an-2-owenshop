@@ -2,128 +2,252 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
+    <title>Owen Shop</title>
+    <!-- font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alkatra&family=Berkshire+Swash&family=Comic+Neue:wght@700&family=Gentium+Book+Plus:wght@400;700&family=Lato:ital,wght@0,400;0,700;0,900;1,700&family=Lexend+Deca:wght@500&family=Lexend:wght@500&family=Montserrat:wght@500&family=Open+Sans:wght@500;800&family=Roboto:wght@100;400&family=Sue+Ellen+Francisco&family=Work+Sans:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900;&display:swap">
+    <!-- css -->
+    <link rel="stylesheet" href="/css/reuse/root.css">
+    <link rel="stylesheet" href="/css/reuse/header-nav.css">
+    <link rel="stylesheet" href="/css/reuse/products.css">
+    <link rel="stylesheet" href="/css/reuse/footer.css">
+    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/home.css">
-    <link rel="stylesheet" href="/css/root.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="search">
-            <input class="search-input" type="text" placeholder="SEARCH...">
-            <a href=""><i class="fa-solid fa-magnifying-glass" style="color: #000000;"></i></a>
+    <section id="header">
+        <a href="#"><img src="imgs/logo/logo.png"></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+                <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
+                    <span id="quantity">
+                        <%=cartCount%>
+                    </span>
+                </li>
+                <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
+            </ul>
         </div>
-
-        <div class="user-options">
-            <a href="/adminLogin" class="admin-login"><i class="fa-solid fa-lock"></i>Admin</a>
-            <i class="fa-solid fa-user" style="color: #000000;"></i>
-            <a href="/login" class="login">Log In</a>
-            <a href="#" class="cart">
-                <i class="fa-solid fa-gift" style="color: #000000;"></i>
-                <i class="fa-solid fa-bag-shopping" style="color: #000000;"></i>
+        <div id="mobile">
+            <a href="/cart"><i class="fal fa-shopping-bag"></i>
+                <span class="quantity">
+                    <%=cartCount%>
+                </span>
             </a>
+            <i id="bar" class="fas fa-outdent"></i>
         </div>
-    </nav>
-    <div class="container">
-        <div class="logo">
-            Owen.
+    </section>
+
+    <section id="hero">
+        <h4>Trade-in-fair</h4>
+        <h2>Super value deals</h2>
+        <h1>On all Products</h1>
+        <p>Save more with coupons and up to 70% off!</p>
+        <button>Shop Now</button>
+
+    </section>
+
+    <section id="feature" class="section-p1">
+        <div class="fe-box">
+            <img src="/imgs/features/f1.png" alt="">
+            <h6>Free Shipping</h6>
         </div>
-        <ul class="nav-links">
-            <li><a href="/shop">SHOP</a></li>
-            <li><a href="#">ABOUT</a></li>
-            <li><a href="#">JOURNAL</a></li>
-            <li><a href="#">CONTACT</a></li>
-        </ul>
-        <div class="double-hr1">
-            <hr class="line-left">
-            <span class="brand-title">WOMEN'S APPAREL BRAND</span>
-            <hr class="line-right">
+
+        <div class="fe-box">
+            <img src="/imgs/features/f2.png" alt="">
+            <h6>Online Order</h6>
         </div>
-        <div class="banner">
-            <img src="/imgs/banner/banner1.png" alt="">
+
+        <div class="fe-box">
+            <img src="/imgs/features/f3.png" alt="">
+            <h6>Save Money</h6>
         </div>
-        <div class="feature-items">
-            <div class="double-hr2">
-                <hr class="line-left">
-                <span class="brand-title">OUTSTANDING PRODUCTS</span>
-                <hr class="line-right">
-            </div>
-            <div class="feature-products">
-                <% for(var i=0; i <=5; i++) { %>
-                    <div class="pro-container">
-                        <img src="/imgs/products/<%=rows[i].image%>" alt="">
-                        <label for="name">
-                            <%=rows[i].name%>
-                        </label>
-                        <label for="price">
-                            $<%=rows[i].price%>
-                        </label>
-                        <div class="div-btn">
-                            <a href="/getProductDetails/<%=rows[i].id%>"><button type="button" class="btn-basic">See
-                                    More</button></a>
+
+        <div class="fe-box">
+            <img src="/imgs/features/f4.png" alt="">
+            <h6>Promotions</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="/imgs/features/f5.png" alt="">
+            <h6>Happy Sell</h6>
+        </div>
+
+        <div class="fe-box">
+            <img src="/imgs/features/f6.png" alt="">
+            <h6>F24/7 Support</h6>
+        </div>
+
+    </section>
+
+    <section id="product1" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Summer Collection New Modern Design</p>
+        <div class="pro-container">
+            <% for(var i=0; i < rows.length; i++) { %>
+                <div class="pro">
+                    <a href="/shop/getProDetails/<%=rows[i].id%>">
+                        <img src="imgs/products/<%=rows[i].image_url%>" alt="">
+                        <div class="des">
+                            <span>
+                                <%=rows[i].id%>
+                            </span>
+                            <h5>
+                                <%=rows[i].name%>
+                            </h5>
+                            <div class="star">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h4>
+                                $<%=rows[i].price%>
+                            </h4>
                         </div>
-                    </div>
-                    <% } %>
+                        <i class="fal fa-shopping-cart cart"></i>
+                    </a>
+                </div>
+                <% } %>
+        </div>
+    </section>
 
-            </div>
-            <div class="shop-all">
-                <button class="btn-basic">Shop All</button>
-            </div>
+    <section id="sm-banner" class="section-p1">
+        <div class="banner-box">
+            <h4>crazy deals</h4>
+            <h2>buy 1 get 1 free</h2>
+            <span>The best classic dress is on sales at cara</span>
+            <button class="btn white">Learn More</button>
+
         </div>
 
-        <!-- footer -->
-        <section id="footer">
-            <div class="info-contacts">
-                <img src="/imgs/logo/logo.png" alt="">
-                <strong>Thông tin liên hệ</strong>
-                <p><strong>Địa chỉ:</strong>Viet Nam, Da Nang city, Quan Ngu Hanh Son</p>
-                <p><strong>Số điện thoại: </strong> 0813118974</p>
-                <p><strong>Email: </strong>252quanghuy@gmail.com</p>
-                <p><strong>Giờ: </strong>9:00-21:00, Mon-Sat</p>
-                <div class="follow-us">
+        <div class="banner-box banner-box2">
+            <h4>spring/summer</h4>
+            <h2>upcoming season</h2>
+            <span>The best classic dress is on sales at cara</span>
+            <button class="btn white">Collection</button>
+
+        </div>
+
+    </section>
+
+    <section id="banner3" class="section-p1">
+        <div class="banner-box">
+
+            <h2>SEASONAL SALES</h2>
+            <h3>Winter Collection -50% OFF</h3>
+
+        </div>
+
+        <div class="banner-box banner-img2">
+
+            <h2>SEASONAL SALES</h2>
+            <h3>Winter Collection -50% OFF</h3>
+
+        </div>
+
+        <div class="banner-box banner-img3">
+
+            <h2>SEASONAL SALES</h2>
+            <h3>Winter Collection -50% OFF</h3>
+
+        </div>
+
+    </section>
+
+    <section id="newsletter" class="section-p1">
+        <div class="newstext">
+            <h4>Sign Up for Newsletters</h4>
+            <p>Get Email updates about our latest shop and <span> special offers.</span> </p>
+        </div>
+        <div class="form">
+            <input type="text" placeholder="Your email address">
+            <button class="btn normal">Sign Up</button>
+        </div>
+
+        </div>
+
+    </section>
+
+    <!-- footer -->
+    <footer class="section-p1">
+
+        <div class="col">
+            <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
+            <h4>Contact</h4>
+            <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
+            <p><strong>Email: </strong>252quanghuy@gmail.com</p>
+            <p><strong>Phone:</strong>0813118974</p>
+            <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
                     <a href="https://www.facebook.com/huydz.252">
-                        <i class="fa-brands fa-facebook"></i>
-                        <i class="fa-brands fa-instagram"></i>
-                        <i class="fa-brands fa-pinterest"></i>
-                        <i class="fa-brands fa-twitter"></i>
-                        <i class="fa-brands fa-youtube"></i>
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-youtube"></i>
+                        <i class="fab fa-pinterest-p"></i>
                     </a>
                 </div>
             </div>
-            <div class="contact-abouts">
-                <strong>Liên hệ</strong>
-                <p>Về chúng tôi</p>
-                <p>Thông tin giao hàng</p>
-                <p>Chính sách bảo mật</p>
-                <p>Điều khoản & Điều kiện</p>
-                <p>Liên hệ chúng tôi</p>
-            </div>
-            <div class="our-account">
-                <strong>Tài khoản của tôi</strong>
-                <p>Đăng nhập</p>
-                <p>Xem giỏ hàng</p>
-                <p>Sản phẩm yêu thích</p>
-                <p>Theo dõi đơn hàng của tôi</p>
-                <p>Trợ giúp</p>
-            </div>
-            <div class="dowload-app">
-                <strong>Tải ứng dụng</strong>
-                <p>Từ App Store hoặc Google Play</p>
-                <div class="imgs-dowload">
-                    <img src="/imgs/footer/app.jpg" alt="">
-                    <img src="/imgs/footer/play.jpg" alt="">
-                </div>
-                <p>Cổng thanh toán an toàn</p>
-                <div class="pay">
-                    <img src="/imgs/footer/pay.png" alt="">
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
 
+        <div class="sec">
+            <div class="col">
+                <h4>About</h4>
+                <a href="#">About Us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms and Condition</a>
+                <a href="#">Contact Us</a>
+            </div>
+
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Account</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track my Order</a>
+                <a href="#">Help</a>
+
+            </div>
+
+            <div class="col install">
+                <h4>Install App</h4>
+                <p>From App Store or Google Play</p>
+
+                <div class="row">
+                    <img src="/imgs/pay/app.jpg" alt="">
+                    <img src="/imgs/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="/imgs/pay/pay.png" alt="">
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="/js/navbar.js"></script>
 </body>
 
 </html>
