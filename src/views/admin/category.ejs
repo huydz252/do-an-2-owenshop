@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Categories</title>
+    <link rel="stylesheet" href="/css/admin/category.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Category Management</h1>
+        <button id="addBtn" class="add-btn">Add Category</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Is Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% rows.forEach((category, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= category.id %>
+                        </td>
+                        <td>
+                            <%= category.name %>
+                        </td>
+                        <td>
+                            <%= category.description %>
+                        </td>
+                        <td>
+                            <%= category.createdAt %>
+                        </td>
+                        <td>
+                            <%= category.updatedAt %>
+                        </td>
+                        <td>
+                            <%= category.is_active==1 ? "Active" : "Inactive" %>
+                        </td>
+                        <td class="actions">
+                            <button class="edit-btn" data-index="<%= index %>" data-id="<%= category.id %>"
+                                data-name="<%= category.name %>" data-description="<%= category.description %>"
+                                data-is-active="<%= category.is_active %>">
+                                Edit
+                            </button>
+                            <button class="delete-btn" data-index="<%= index %>">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Modal for Add -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modalTitle">Add Category</h2>
+            <form id="categoryForm" action="/admin/categoryForm/addCategory" method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" required></textarea>
+
+                <label for="isActive">Is Active:</label>
+                <select id="isActive" name="isActive">
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/admin/category.js"></script>
+</body>
+
+</html>

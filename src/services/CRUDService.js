@@ -14,7 +14,6 @@ const getAllProducts = async (req, res) => {
 }
 const getProductById = async (req, res) => {
     const productId = req.params.id;
-
     try {
         const product = await Product.findOne({
             where: { id: productId },
@@ -36,8 +35,28 @@ const updateCartNumber = (req, res) => {
     return cartCount;
 }
 
+// admin
+const getAllCategories = async (req, res) => {
+    try {
+        const categories = await Category.findAll({
+            attributes: [
+                'id',
+                'name',
+                'description',
+                'createdAt',
+                'updatedAt',
+                'is_active'
+            ]
+        })
+        return categories;
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(500).json({ message: 'Error fetching categories' });
+    }
+}
+
 
 module.exports = {
     getAllProducts, getProductById,
-    updateCartNumber
+    updateCartNumber, getAllCategories
 }

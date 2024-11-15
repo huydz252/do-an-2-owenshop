@@ -25,8 +25,8 @@ const Category = sequelize.define('Category', {
         onUpdate: Sequelize.NOW,
     },
     is_active: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        type: DataTypes.TINYINT,
+        allowNull: false,
     },
 }, {
     tableName: 'categories',

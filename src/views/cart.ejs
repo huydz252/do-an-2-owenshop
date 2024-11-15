@@ -61,7 +61,7 @@
         <!-- top -->
         <section id="page-header" class="about-header">
             <span><a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> OWEN </a> / <a
-                    href="/cart">CART</a></span>
+                    href="/cart">CART</a> </span>
 
         </section>
         <table width="100%" class="product-table">
@@ -75,6 +75,7 @@
                         <td>QUANTITY</td>
                         <td>SIZE</td>
                         <td>TOTAL PRICE</td>
+                        <td>STATUS</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -97,9 +98,13 @@
                             </td>
                             <td>
                                 <div class="quantity-selector">
-
-                                    <input id="count" type="number" value="<%=cart[i].quantity%>" min="0">
-
+                                    <button type="button" class="decrease" class="btnHover" data-id="<%= cart[i].id %>"
+                                        data-price="<%= cart[i].price %>"
+                                        data-quantity="<%= cart[i].quantity %>">-</button>
+                                    <input class="count" type="number" value="<%=cart[i].quantity%>" min="0">
+                                    <button type="button" class="increase" class="btnHover" data-id="<%= cart[i].id %>"
+                                        data-price="<%= cart[i].price %>"
+                                        data-quantity="<%= cart[i].quantity%>">+</button>
                                 </div>
                             </td>
                             <td>
@@ -108,7 +113,11 @@
                                 </span>
                             </td>
                             <td>
-                                <span>$<%=cart[i].quantity*cart[i].price%></span>
+                                <span class="total-price-product">$<%=cart[i].quantity*cart[i].price%></span>
+                            </td>
+                            <td class="check">
+                                <input type="checkbox" class="product-checkbox" data-id="<%= cart[i].id %>"
+                                    data-price="<%= cart[i].price %>" data-quantity="<%= cart[i].quantity %>" />
                             </td>
                         </tr>
                         <%}%>
@@ -118,6 +127,7 @@
                 </tbody>
 
         </table>
+
     </section>
 
     <!-- Cart Add -->
@@ -131,16 +141,17 @@
             <div>
                 <h4>tổng giỏ hàng</h4>
                 <table class="totalCart">
-                    <% var totalCart=0; for(var i=0; i < cart.length; i++) { %>
-                        <% totalCart+=parseInt(cart[i].quantity*cart[i].price)%>
-                            <%}%>
-                                <span>
-                                    $<%=totalCart%>
-                                </span>
+
+                    <span id="total-price-cart">
+
+                    </span>
                 </table>
                 <button id="pay">
                     <a href="#modal__display">Tiến Hành Kiểm Tra</a>
                 </button>
+            </div>
+            <div class="save">
+                <a href="/cart"><button class="btn-green">Save</button></a>
             </div>
         </div>
     </section>
@@ -204,6 +215,8 @@
             </div>
         </div>
     </footer>
+
+    <script src="/js/cart.js"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 const connection = require("../config/database");
 const { Op } = require('sequelize');
-const { getAllProducts, getProductById, updateCartNumber } = require('../services/CRUDService')
+const { getAllProducts, getProductById, updateCartNumber, getAllCategories } = require('../services/CRUDService')
 const Product = require('../models/product');
 const Category = require('../models/category');
 
@@ -102,6 +102,7 @@ const postAddToCart = async (req, res) => {
     const name = product.name;
     const price = product.price;
     const image_url = product.image_url;
+    const checked = false;
     if (!req.session.cart) {
         req.session.cart = []; // Tạo giỏ hàng trống
     }
@@ -112,7 +113,7 @@ const postAddToCart = async (req, res) => {
         existingProduct.quantity += quantity;
     } else {
         // Nếu chưa có, thêm sản phẩm vào giỏ hàng
-        req.session.cart.push({ id: id, name: name, price: price, image_url: image_url, quantity: quantity, size: size });
+        req.session.cart.push({ id: id, name: name, price: price, image_url: image_url, quantity: quantity, size: size, checked: checked });
     }
     res.redirect('/cart')
 };
@@ -129,19 +130,41 @@ const deleteProduct = (req, res) => {
     if (!req.session.cart) {
         return res.send('Giỏ hàng trống');
     }
-
     req.session.cart = req.session.cart.filter(item => item.id !== productId);
     res.redirect('/cart')
 }
 
-
-// admin
-const getAddProductForm = async (req, res) => {
-    res.render('admin/addProduct.ejs')
+const updateCartTotal = async (req, res) => {
+    //lấy cả id, checked để sau update tính năng thanh toán --> có hiện các sp đã checked
+    let { id, total, checked } = req.body
+    req.session.totalPrice = total
+    let product = req.session.cart.find(item => item.id === id)
+    if (product) {
+        product.checked = checked
+    }
+    return res.json({ success: true, id: id, total: total, checked: checked })
 }
 
-const getAddCategoryForm = async (req, res) => {
-    res.render('admin/addCategory.ejs')
+const updateCartQuantity = async (req, res) => {
+    const { id, quantity } = req.body
+    console.log('>>>check id, quantity: ', id, quantity)
+    let product = req.session.cart.find(item => item.id === id)
+    product.quantity = quantity
+    console.log('>>>>> check product checked', product.checked);
+    if (product) {
+        product.quantity = quantity;
+        if (product.checked) {
+            product.totalPrice = quantity * product.price;
+        }
+    }
+    return res.json({ success: true, id: id, quantity: quantity })
+
+}
+
+
+// admin
+const getProductForm = async (req, res) => {
+    res.render('admin/product.ejs')
 }
 
 const postAddProduct = async (req, res) => {
@@ -169,18 +192,27 @@ const postAddProduct = async (req, res) => {
         });
     }
 }
+
+const getCategoryForm = async (req, res) => {
+    let getAllCategory = await getAllCategories();
+    res.render('admin/category.ejs', { rows: getAllCategory })
+}
+
 const postAddCategory = async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description, isActive } = req.body;
+    let is_active;
+    if (isActive == true) {
+        is_active = 1;
+    } else {
+        is_active = 0;
+    }
     try {
         const newCategory = await Category.create({
             name: name,
-            description: description
-            // Không cần truyền createdAt và updatedAt, Sequelize tự động xử lý
+            description: description,
+            is_active: is_active
         })
-        res.status(201).json({
-            message: 'Category added successfully!',
-            category: newCategory,
-        });
+        res.redirect('admin/category.ejs')
     } catch (error) {
         console.log('Error adding category: ', error)
         res.status(500).json({
@@ -192,7 +224,7 @@ const postAddCategory = async (req, res) => {
 
 module.exports = {
     getHomepage, getShop,
-    getProductDetails, getAddProductForm, getAddCategoryForm,
+    getProductDetails, getProductForm, getCategoryForm,
     postAddProduct, postAddCategory, getCart, postAddToCart,
-    deleteProduct
+    deleteProduct, updateCartTotal, updateCartQuantity
 }   

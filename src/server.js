@@ -1,10 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
 const configViewEngine = require('./config/viewEngine');
 const route = require('./routes/web');
-
-const connection = require('./config/database');
 
 const app = express()
 const port = process.env.PORT || 2302;
@@ -16,12 +15,26 @@ configViewEngine(app);
 app.use(express.json()) //for json
 app.use(express.urlencoded({ extended: true })) //for form data
 
-// Thiết lập middleware cho session
+const options = {
+    host: process.env.HOST_NAME,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,   // Mật khẩu MySQL của bạn
+    database: process.env.DB_NAME  // Tên database bạn đã tạo
+};
+
+// Khởi tạo MySQLStore với cấu hình trên
+const sessionStore = new MySQLStore(options);
+
 app.use(session({
-    secret: '2502',                     // Khóa bảo mật session
+    key: 'session-cart',         // Tên cookie lưu session
+    secret: 'huydeptraivl',          // Chuỗi bí mật cho session
+    store: sessionStore,                // Sử dụng MySQLStore để lưu session
     resave: false,                      // Không lưu lại session nếu không có thay đổi
-    saveUninitialized: true,            // Tạo session ngay cả khi chưa có dữ liệu
-    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }  // Thời gian sống của cookie (1 năm)
+    saveUninitialized: false,           // Không lưu session chưa khởi tạo
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30     // Thời gian sống của session (ở đây là 1 tháng)
+    }
 }));
 
 app.use('/', route)

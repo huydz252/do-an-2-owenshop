@@ -57,3 +57,17 @@ body {
     width: 100%;
     font-family: inherit;
 }
+
+.btnHover:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.btn-green {
+    background-color: #0f6e2f;
+    color: white;
+    border-radius: 3px;
+    font-size: 14px;
+    height: 40px;
+    margin-top: 20px;
+}
