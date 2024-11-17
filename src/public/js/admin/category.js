@@ -1,59 +1,80 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Modal references
+    const addModal = document.getElementById("addModal");
+    const editModal = document.getElementById("editModal");
+
+    // Buttons
     const addBtn = document.getElementById("addBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const modal = document.getElementById("modal");
-    const categoryForm = document.getElementById("categoryForm");
-    const modalTitle = document.getElementById("modalTitle");
-    let editingCategory = null;
+    const cancelAddBtn = document.getElementById("cancelAddBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
 
-    // Handle Add button click to open modal for adding a new category
-    addBtn.addEventListener("click", () => {
-        // Clear form and set up modal for adding a new category
-        modalTitle.textContent = "Add Category";
-        categoryForm.reset(); // Reset form fields
-        editingCategory = null; // No category selected for editing
-        modal.classList.remove("hidden"); // Show modal
-    });
+    // Add Button: Open Add Modal
+    if (addBtn) {
+        addBtn.addEventListener("click", () => {
+            addModal.classList.remove("hidden");
+        });
+    }
 
-    // Handle Cancel button click to close the modal
-    cancelBtn.addEventListener("click", () => {
-        modal.classList.add("hidden"); // Hide modal
-    });
+    // Cancel Add Modal
+    if (cancelAddBtn) {
+        cancelAddBtn.addEventListener("click", () => {
+            addModal.classList.add("hidden");
+        });
+    }
 
-
-    // Handle Edit button click to open modal with pre-filled data for editing
-    document.querySelectorAll(".edit-btn").forEach(button => {
+    // Handle Edit Button Click
+    document.querySelectorAll(".edit-btn").forEach((button) => {
         button.addEventListener("click", () => {
-            // Get category data from data attributes
-            const index = button.dataset.index;
-            const id = button.dataset.id;
-            const name = button.dataset.name;
-            const description = button.dataset.description;
-            const isActive = button.dataset.isActive === "true";
+            const id = button.getAttribute("data-id");
+            const name = button.getAttribute("data-name");
+            const description = button.getAttribute("data-description");
+            const isActive = button.getAttribute("data-is-active");
 
-            // Fill the form with the existing category data
-            modalTitle.textContent = "Edit Category";
-            document.getElementById("name").value = name;
-            document.getElementById("description").value = description;
-            document.getElementById("isActive").value = isActive ? "true" : "false";
+            // Fill the form in the edit modal
+            document.getElementById("id_edit").value = id;
+            document.getElementById("name_edit").value = name;
+            document.getElementById("description_edit").value = description;
+            document.getElementById("isActive_edit").value =
+                isActive === "1" ? "true" : "false";
 
-            // Set editingCategory to the selected category's data
-            editingCategory = { id, name, description, isActive };
-
-            // Show the modal
-            modal.classList.remove("hidden");
+            // Show edit modal
+            editModal.classList.remove("hidden");
         });
     });
 
-    // Handle Delete button click
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            const id = button.dataset.id;
-            // Show a confirmation prompt for deletion
-            if (confirm(`Are you sure you want to delete category with ID: ${id}?`)) {
-                console.log(`Deleting category with ID: ${id}`);
-                // Perform the delete via your fetch or other methods
+    // Cancel Edit Modal
+    if (cancelEditBtn) {
+        cancelEditBtn.addEventListener("click", () => {
+            editModal.classList.add("hidden");
+        });
+    }
+
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', async () => {
+            const id = button.getAttribute("data-id");
+            if (confirm('are u sure delete this category ?')) {
+                try {
+                    await fetch('/admin/categoryForm/deleteCategory', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id: id })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Server updated successfully');
+                        })
+                        .catch(error => {
+                            console.error('Error updating category on server:', error);
+                        });
+                    location.reload()
+                } catch (error) {
+                    console.log("error: ", error)
+                    alert('can\'t delete this category')
+                }
             }
-        });
-    });
+        })
+    })
 });
+

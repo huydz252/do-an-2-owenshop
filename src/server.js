@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
+const multer = require('multer');
+const path = require('path');
+
 const configViewEngine = require('./config/viewEngine');
 const route = require('./routes/web');
 
@@ -33,9 +36,21 @@ app.use(session({
     resave: false,                      // Không lưu lại session nếu không có thay đổi
     saveUninitialized: false,           // Không lưu session chưa khởi tạo
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 30     // Thời gian sống của session (ở đây là 1 tháng)
+        maxAge: 1000 * 60 * 60 * 24 * 30 * 365    // Thời gian sống của session (ở đây là 1 tháng)
     }
 }));
+
+// Cấu hình multer để lưu ảnh vào thư mục imgs/products
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'imgs/products');  // Địa chỉ thư mục lưu ảnh
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname);  // Đặt tên file là <fieldname>.<ext>
+    }
+});
+const upload = multer({ storage: storage });
+module.exports = upload;
 
 app.use('/', route)
 

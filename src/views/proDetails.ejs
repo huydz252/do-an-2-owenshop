@@ -7,6 +7,7 @@
     <title>Owen Shop</title>
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,16 +77,13 @@
                                     class="small-img" alt=""></a>
                         </div>
                         <%}%>
-                            <% } else {%>
-                                <h3>
-                                    No related products available.
-                                </h3>
-                                <% } %>
+                            <% } %>
+
             </div>
 
         </div>
         <div class="single-pro-details">
-            <form action="/shop/getProDetails/addtoCart/<%=rows.id%>" method="post">
+            <form action="/shop/proDetails/addtoCart/<%=rows.id%>" method="post">
                 <h2>
                     <%=rows.name%>
                 </h2>
@@ -117,7 +115,7 @@
             <%if(relatedProducts.length> 0) {%>
                 <% for(var i=0; i < relatedProducts.length; i++) {%>
                     <div class="pro">
-                        <a href="/shop/getProDetails/<%=relatedProducts[i].id%>">
+                        <a href="/shop/proDetails/<%=relatedProducts[i].id%>">
                             <img src="/imgs/products/<%=relatedProducts[i].image_url%>" alt="">
                             <div class="des">
                                 <span>
@@ -155,7 +153,7 @@
             <%if(otherProducts.length> 0) {%>
                 <% for(var i=0; i < otherProducts.length; i++) {%>
                     <div class="pro">
-                        <a href="/shop/getProDetails/<%=otherProducts[i].id%>">
+                        <a href="/shop/proDetails/<%=otherProducts[i].id%>">
                             <img src="/imgs/products/<%=otherProducts[i].image_url%>" alt="">
                             <div class="des">
                                 <span>

@@ -18,7 +18,7 @@
     padding: 10px 12px;
     border: 1px solid #cce7d0;
     border-radius: 25px;
-    cursor: pointer;
+
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
     margin: 15px 0;
     transition: 0.2s ease;
@@ -26,13 +26,18 @@
 }
 
 #product .pro:hover {
+    cursor: pointer;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
 }
 
 #product1 .pro img {
     width: 100%;
     border-radius: 20px;
+    max-height: 300px;
+    object-fit: cover;
+    overflow: hidden;
 }
+
 
 #product1 .pro .des {
     text-align: start;
@@ -60,6 +65,11 @@
     padding-top: 7px;
     font-weight: 700;
     color: #088178;
+}
+
+.small-img {
+    max-height: 90px;
+
 }
 
 #product1 .pro .cart {

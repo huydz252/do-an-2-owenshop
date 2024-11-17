@@ -1,35 +1,169 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm Sản Phẩm</title>
+    <title>CRUD Products</title>
+    <link rel="stylesheet" href="/css/admin/product.css">
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
 </head>
 
 <body>
-    <h1>Thêm Sản Phẩm</h1>
-    <form action="/admin/addProductForm/addProduct" method="POST">
-        <label for="name">Tên Sản Phẩm:</label>
-        <input type="text" id="name" name="name" required>
+    <div class="container">
+        <a href="/admin">back</a>
+        <h1>Product Management</h1>
+        <button id="addBtn" class="add-btn">Add Product</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Is Active</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% rows.forEach((product, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= product.id %>
+                        </td>
+                        <td>
+                            <%= product.name %>
+                        </td>
+                        <td class="description">
+                            <%= product.description %>
+                        </td>
+                        <td>
+                            <%= product.price %>
+                        </td>
+                        <td>
+                            <%= product.stock %>
+                        </td>
+                        <td>
+                            <%= product.category_id %>
+                        </td>
+                        <td><img src="/imgs/products/<%= product.image_url %>" alt="product image" width="100"></td>
+                        <td>
+                            <%= product.createdAt %>
+                        </td>
+                        <td>
+                            <%= product.updatedAt %>
+                        </td>
+                        <td>
+                            <%= product.is_active==1 ? "Active" : "Inactive" %>
+                        </td>
+                        <td class="actions">
+                            <button class="edit-btn" data-index="<%= index %>" data-id="<%= product.id %>"
+                                data-name="<%= product.name %>" data-description="<%= product.description %>"
+                                data-price="<%= product.price %>" data-stock="<%= product.stock %>"
+                                data-category-id="<%= product.category_id %>" data-categoryName="<%= categories.name %>"
+                                data-image-url="<%= product.image_url %>"
+                                data-is-active="<%= product.is_active %>">Edit</button>
+                            <button class="delete-btn" data-index="<%= index %>"
+                                data-id="<%= product.id %>">Delete</button>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
 
-        <label for="description">Mô Tả:</label>
-        <textarea id="description" name="description" required></textarea>
+    <!-- Modal for Add -->
+    <div id="addModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Add Product</h2>
+            <form id="addProductForm" action="/admin/productForm/addProduct" method="post"
+                enctype="multipart/form-data">
+                <label for="name_add">Name:</label>
+                <input type="text" id="name_add" name="name_add" required>
 
-        <label for="price">Giá:</label>
-        <input type="number" id="price" name="price" required>
+                <label for="description_add">Description:</label>
+                <textarea id="description_add" name="description_add" rows="4" required></textarea>
 
-        <label for="stock">Số Lượng:</label>
-        <input type="number" id="stock" name="stock" required>
+                <label for="price_add">Price:</label>
+                <input type="number" id="price_add" name="price_add" required>
 
-        <label for="category_id">Danh Mục:</label>
-        <input type="number" id="category_id" name="category_id" required>
+                <label for="stock_add">Stock:</label>
+                <input type="number" id="stock_add" name="stock_add" required>
 
-        <label for="image_url">URL Hình Ảnh:</label>
-        <input type="text" id="image_url" name="image_url" required>
+                <label for="category_id_add">Category:</label>
+                <select id="category_id_add" name="category_id_add" required>
+                    <%categories.forEach(category=> {%>
+                        <option value="<%=category.id%>">
+                            <%=category.name%>
+                        </option>
+                        <%})%>
+                </select>
 
-        <button type="submit">Thêm Sản Phẩm</button>
-    </form>
+                <label for="image_add">Image:</label>
+                <input type="file" id="image_add" name="image_add" accept="image/*" required>
+
+                <label for="isActive_add">Is Active:</label>
+                <select id="isActive_add" name="is_active_add">
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelAddBtn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Edit -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Edit Product</h2>
+            <form id="editProductForm" action="/admin/productForm/editProduct" method="post"
+                enctype="multipart/form-data">
+                <input type="hidden" id="id_edit" name="id_edit">
+
+                <label for="name_edit">Name:</label>
+                <input type="text" id="name_edit" name="name_edit" required>
+
+                <label for="description_edit">Description:</label>
+                <textarea id="description_edit" name="description_edit" rows="4" required></textarea>
+
+                <label for="price_edit">Price:</label>
+                <input type="number" id="price_edit" name="price_edit" required>
+
+                <label for="stock_edit">Stock:</label>
+                <input type="number" id="stock_edit" name="stock_edit" required>
+
+                <label for="category_id_edit">Category:</label>
+                <select id="category_id_edit" name="category_id_edit" required>
+                    <%categories.forEach(category=>{ %>
+                        <option value="<%=category.id%>">
+                            <%=category.name%>
+                        </option>
+                        <%})%>
+                </select>
+
+                <label for="image_edit">Image:</label>
+                <input type="file" id="image_edit" name="image_edit" accept="image/*">
+
+                <label for="isActive_edit">Is Active:</label>
+                <select id="isActive_edit" name="is_active_edit">
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/admin/product.js"></script>
 </body>
 
 </html>

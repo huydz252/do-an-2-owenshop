@@ -7,6 +7,7 @@
     <title>Owen Shop</title>
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +66,7 @@
         <div class="pro-container">
             <% for(var i=0; i < rows.length; i++) { %>
                 <div class="pro">
-                    <a href="/shop/getProDetails/<%=rows[i].id%>">
+                    <a href="/shop/proDetails/<%=rows[i].id%>">
                         <img src="imgs/products/<%=rows[i].image_url%>" alt="">
                         <div class="des">
                             <span>

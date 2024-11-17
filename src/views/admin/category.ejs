@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Categories</title>
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <link rel="stylesheet" href="/css/admin/category.css">
 </head>
 
 <body>
     <div class="container">
+        <a href="/admin">back</a>
         <h1>Category Management</h1>
         <button id="addBtn" class="add-btn">Add Category</button>
         <table>
@@ -51,7 +53,8 @@
                                 data-is-active="<%= category.is_active %>">
                                 Edit
                             </button>
-                            <button class="delete-btn" data-index="<%= index %>">
+
+                            <button class="delete-btn" data-index="<%= index %>" data-id="<%= category.id %>">
                                 Delete
                             </button>
                         </td>
@@ -59,28 +62,52 @@
                     <% }) %>
             </tbody>
         </table>
-
     </div>
 
     <!-- Modal for Add -->
-    <div id="modal" class="modal hidden">
+    <div id="addModal" class="modal hidden">
         <div class="modal-content">
-            <h2 id="modalTitle">Add Category</h2>
-            <form id="categoryForm" action="/admin/categoryForm/addCategory" method="post">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+            <h2>Add Category</h2>
+            <form id="addCategoryForm" action="/admin/categoryForm/addCategory" method="post">
+                <label for="name_add">Name:</label>
+                <input type="text" id="name_add" name="name_add" required>
 
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
+                <label for="description_add">Description:</label>
+                <textarea id="description_add" name="description_add" rows="4" required></textarea>
 
-                <label for="isActive">Is Active:</label>
-                <select id="isActive" name="isActive">
+                <label for="isActive_add">Is Active:</label>
+                <select id="isActive_add" name="is_active_add">
                     <option value="true">Active</option>
                     <option value="false">Inactive</option>
                 </select>
 
                 <button type="submit" class="save-btn">Save</button>
-                <button type="button" class="cancel-btn" id="cancelBtn">Cancel</button>
+                <button type="button" class="cancel-btn" id="cancelAddBtn">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Edit -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Edit Category</h2>
+            <form id="editCategoryForm" action="/admin/categoryForm/editCategory" method="post">
+                <input type="hidden" id="id_edit" name="id_edit">
+
+                <label for="name_edit">Name:</label>
+                <input type="text" id="name_edit" name="name_edit" required>
+
+                <label for="description_edit">Description:</label>
+                <textarea id="description_edit" name="description_edit" rows="4" required></textarea>
+
+                <label for="isActive_edit">Is Active:</label>
+                <select id="isActive_edit" name="is_active_edit">
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
             </form>
         </div>
     </div>
