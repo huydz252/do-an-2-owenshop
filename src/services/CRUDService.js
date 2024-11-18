@@ -28,7 +28,7 @@ const getProductById = async (req, res) => {
 
 const updateCartNumber = (req, res) => {
     let cartCount = 0;
-    const cart = req.session.cart || []
+    const cart = Array.isArray(req.session.cart) ? req.session.cart : []; // Đảm bảo `cart` là mảng
     cart.forEach(element => {
         cartCount += element.quantity;
     });

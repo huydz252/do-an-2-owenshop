@@ -6,7 +6,12 @@ const multer = require('multer');
 const path = require('path');
 
 const configViewEngine = require('./config/viewEngine');
-const route = require('./routes/web');
+const adminRoutes = require('./routes/adminRoutes');
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const authMiddleware = require('./middlewares/auth');
+
 
 const app = express()
 const port = process.env.PORT || 2302;
@@ -36,7 +41,7 @@ app.use(session({
     resave: false,                      // Không lưu lại session nếu không có thay đổi
     saveUninitialized: false,           // Không lưu session chưa khởi tạo
     cookie: {
-        maxAge: 1000 * 60 * 60 * 24 * 30 * 365    // Thời gian sống của session (ở đây là 1 tháng)
+        maxAge: 1000 * 60 * 60 * 24 * 30 * 365    // Thời gian sống của session (ở đây là 1 năm)
     }
 }));
 
@@ -49,10 +54,22 @@ const storage = multer.diskStorage({
         cb(null, file.fieldname);  // Đặt tên file là <fieldname>.<ext>
     }
 });
+
 const upload = multer({ storage: storage });
 module.exports = upload;
 
-app.use('/', route)
+app.use(authMiddleware.checkLoginStatus);
+app.use((req, res, next) => {
+    if (!req.session.cart || !Array.isArray(req.session.cart)) {
+        req.session.cart = []; // Khởi tạo giỏ hàng là mảng rỗng nếu chưa tồn tại hoặc không phải mảng
+    }
+    next();
+});
+
+app.use('/', authRoutes);
+app.use('/', productRoutes);
+app.use('/', cartRoutes);
+app.use('/', adminRoutes);
 
 app.listen(port, hostname, () => {
     console.log(`server running on {`, hostname, ',', port, '}');

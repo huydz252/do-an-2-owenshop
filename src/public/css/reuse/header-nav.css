@@ -26,6 +26,32 @@
     justify-content: center;
 }
 
+.icon-rounded {
+    display: inline-flex;
+    /* Để căn giữa icon */
+    justify-content: center;
+    /* Canh giữa ngang */
+    align-items: center;
+    /* Canh giữa dọc */
+    width: 30px;
+    /* Kích thước khung */
+    height: 30px;
+    /* Bằng chiều rộng để khung vuông */
+    border-radius: 50%;
+    /* Bo tròn khung */
+    background-color: #042220;
+    /* Màu nền khung (xanh lam) */
+    color: white;
+    /* Màu icon */
+    font-size: 24px;
+    /* Kích thước icon */
+    border: 2px solid #ffffff;
+    /* Viền trắng (tùy chọn) */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Hiệu ứng bóng đổ (tùy chọn) */
+    overflow: hidden;
+}
+
 #cart a i {
     font-size: large;
     margin-bottom: 5px;
@@ -83,4 +109,68 @@
     position: absolute;
     bottom: -4px;
     left: 20px;
+}
+
+/* Phần button đăng nhập */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Icon người dùng */
+/* Định dạng cho biểu tượng người dùng */
+#userIcon {
+    font-size: 24px;
+    /* Kích thước biểu tượng */
+    cursor: pointer;
+    /* Để người dùng nhận ra đây là một phần có thể bấm */
+    transition: transform 0.3s ease;
+    /* Thêm hiệu ứng khi bấm */
+}
+
+#userIcon:hover {
+    transform: scale(1.2);
+    /* Làm phóng to biểu tượng khi hover */
+}
+
+/* Định dạng cho menu xổ xuống */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    border-radius: 5px;
+    min-width: 160px;
+    padding: 10px 0;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #444;
 }

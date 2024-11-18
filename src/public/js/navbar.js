@@ -16,3 +16,10 @@ if (bar) {
         })
     }
 }
+
+// Lắng nghe sự kiện click vào biểu tượng người dùng
+document.getElementById('userIcon').addEventListener('click', function () {
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    dropdownMenu.classList.toggle('show');  // Toggle để mở/đóng menu
+});
+
