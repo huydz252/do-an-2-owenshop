@@ -75,7 +75,7 @@ td {
 
 }
 
-.coupon div:nth-child(1) {
+/* .coupon div:nth-child(1) {
     display: flex;
     flex-direction: column;
     margin-right: 50px;
@@ -97,7 +97,7 @@ td {
     height: 40px;
     border-radius: 3px;
     font-size: 14px;
-}
+} */
 
 #pay a {
     width: 100%;
@@ -106,22 +106,22 @@ td {
     color: white;
 }
 
-.coupon div:nth-child(2) {
+.coupon div:nth-child(1) {
     display: flex;
     flex-direction: column;
     border: 1px solid #e1e1e1;
     padding: 20px;
 }
 
-.coupon div:nth-child(2) h4 {
+.coupon div:nth-child(1) h4 {
     padding-bottom: 15px;
 }
 
-.coupon div:nth-child(2) td {
+.coupon div:nth-child(1) td {
     padding: 6px 0;
 }
 
-.coupon div:nth-child(2) button {
+.coupon div:nth-child(1) button {
     background-color: #0f6e2f;
     color: white;
     border-radius: 3px;
@@ -182,4 +182,152 @@ td {
 
 #delete-all:hover {
     cursor: pointer;
+}
+
+/*modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    position: relative;
+    top: 15%;
+    width: 80%;
+    max-width: 1000px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-container {
+    display: flex;
+    gap: 20px;
+    /* Khoảng cách giữa 2 phần */
+    margin-top: 20px;
+}
+
+form {
+    flex: 2;
+    border-right: 1px solid #ccc;
+    /* Đường kẻ giữa 2 phần */
+    padding-right: 20px;
+}
+
+.form-group {
+    margin: 20px auto;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group h5 {
+    margin: 10px 0 20px 0;
+    font-weight: 400;
+    font-size: 10px;
+
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.product-checked {
+    flex: 3;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-left: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.pro {
+    width: 150px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.pro:hover {
+    transform: translateY(-5px);
+}
+
+.pro img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.pro .des h5 {
+    margin: 10px 0 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.pro .star {
+    color: #f39c12;
+    margin-bottom: 5px;
+}
+
+.pro h4 {
+    color: #e74c3c;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.modal-footer .btn {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.modal-footer .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.modal-footer .btn-success:hover {
+    background-color: #218838;
+}
+
+.modal-footer .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-footer .btn-danger:hover {
+    background-color: #c82333;
 }

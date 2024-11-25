@@ -1,10 +1,12 @@
 const connection = require("../config/database");
 const { Op, where, json } = require('sequelize');
 const bcrypt = require('bcrypt');
-const { getAllProducts, getProductById, updateCartNumber, getAllCategories } = require('../services/CRUDService')
+const dayjs = require('dayjs');
+const { getAllCategories } = require('../services/CRUDService')
 const Product = require('../models/product');
 const Category = require('../models/category');
 const User = require('../models/user');
+const Purchased_product = require('../models/purchased_products')
 const { USE } = require("sequelize/lib/index-hints");
 
 const getAdmin = async (req, res) => {
@@ -13,9 +15,29 @@ const getAdmin = async (req, res) => {
 
 const getProductForm = async (req, res) => {
     try {
-        const products = await Product.findAll();  // Lấy tất cả sản phẩm
+        const products = await Product.findAll();
+        const data = []
+        for (const pro of products) {
+            const category_name = await Category.findOne({
+                where: { id: pro.dataValues.category_id },
+                attributes: ['name']
+            })
+            data.push({
+                id: pro.dataValues.id,
+                name: pro.dataValues.name,
+                description: pro.dataValues.description,
+                price: pro.dataValues.price,
+                stock: pro.dataValues.stock,
+                category: category_name.dataValues.name,
+                image: pro.dataValues.image_url,
+                createdAt: dayjs(pro.dataValues.createdAt).format('DD/MM/YYYY HH:mm:ss'),
+                updatedAt: dayjs(pro.dataValues.updatedAt).format('DD/MM/YYYY HH:mm:ss'),
+                is_active: pro.dataValues.is_active,
+            })
+        }
+        console.log('check: >>>>>>>>>>>>>>>>>>>>', data[0])
         const categories = await getAllCategories(req, res)
-        res.render('admin/product.ejs', { rows: products, categories: categories });  // Gửi dữ liệu sản phẩm đến view
+        res.render('admin/product.ejs', { rows: data, categories: categories });
     } catch (error) {
         console.error('Error fetching products: ', error);
         res.status(500).json({
@@ -195,10 +217,71 @@ const postDeleteCategory = async (req, res) => {
     }
 };
 
+const getUserForm = async (req, res) => {
+    const dataUsers = await User.findAll({
+        attributes: ['id', 'name', 'email', 'address']
+    });
+    let listUser = []
+    dataUsers.forEach(user => {
+        listUser.push(user.dataValues)
+    });
+    return res.render('admin/user.ejs', { listUsers: listUser })
+}
+
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.userId
+        const user = await User.destroy({
+            where: { id: userId }
+        })
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            })
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'User deleted successfully'
+        })
+    } catch (error) {
+        console.log('error: ', error)
+        res.status(500).json({
+            success: false,
+            message: 'Failed to delete user', error
+        })
+    }
+}
+
+const getPurchased_ProductForm = async (req, res) => {
+    const purchased_products = await Purchased_product.findAll()
+    let listData = []
+    for (const data of purchased_products) {
+        let product = await Product.findOne({ where: { id: data.dataValues.id_product } })
+        let user = await User.findOne({
+            where: { id: data.dataValues.id_user },
+            attributes: ['name']
+        })
+        listData.push({
+            id_user: data.dataValues.id_user,
+            name_user: user.dataValues.name,
+            id_pro: data.dataValues.id_product,
+            quantity: data.dataValues.quantity,
+            size: data.dataValues.size,
+            product: product.dataValues,
+            order_date: dayjs(data.dataValues.created_at).format('DD/MM/YYYY HH:mm:ss'),
+        })
+    }
+    return res.render('admin/purchased_product.ejs', { listData: listData })
+}
+
+
+
 module.exports = {
     getAdmin,
     getProductForm, postEditProduct,
     postAddProduct, deleteDeleteProduct,
     getCategoryForm, postAddCategory,
     postEditCategory, postDeleteCategory,
+    getUserForm, deleteUser, getPurchased_ProductForm,
 }

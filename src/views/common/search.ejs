@@ -1,0 +1,218 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owen Shop</title>
+    <!-- font Awesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alkatra&family=Berkshire+Swash&family=Comic+Neue:wght@700&family=Gentium+Book+Plus:wght@400;700&family=Lato:ital,wght@0,400;0,700;0,900;1,700&family=Lexend+Deca:wght@500&family=Lexend:wght@500&family=Montserrat:wght@500&family=Open+Sans:wght@500;800&family=Roboto:wght@100;400&family=Sue+Ellen+Francisco&family=Work+Sans:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900;&display:swap">
+    <!-- css -->
+    <link rel="stylesheet" href="/css/reuse/root.css">
+    <link rel="stylesheet" href="/css/reuse/header-nav.css">
+    <link rel="stylesheet" href="/css/reuse/products.css">
+    <link rel="stylesheet" href="/css/reuse/footer.css">
+    <link rel="stylesheet" href="/css/reuse/resposive.css">
+    <link rel="stylesheet" href="/css/reuse/pagination.css">
+    <link rel="stylesheet" href="/css/search.css">
+</head>
+
+<body>
+    <!-- header -->
+    <section id="header">
+        <a href="#"><img src="/imgs/logo/logo.png"></a>
+        <div class="search">
+            <form action="/search" method="get">
+                <input type="text" name="name" placeholder="Search here!" value="<%=keyword%>">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+                <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
+                    <span id="quantity">
+                        <%=cartCount%>
+                    </span>
+                </li>
+                <% if (!user) { %>
+                    <a href="/auth/loginForm" class="btn btn-primary">Login</a>
+                    <% } else { %>
+                        <div class="dropdown">
+                            <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
+                                aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="userIcon">
+                                <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
+                                <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
+                            </ul>
+                        </div>
+
+                        <% } %>
+                            <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="/cart"><i class="fal fa-shopping-bag"></i>
+                <span class="quantity">
+                    <%=cartCount%>
+                </span>
+            </a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <h3 class="title">search results for "<%=keyword%>"</h3>
+    <%if(products.length> 0){%>
+        <section id="product1" class="section-p1">
+            <div class="pro-container">
+                <% for(var i=0; i < products.length; i++) { %>
+                    <div class="pro">
+                        <a href="/shop/proDetails/<%=products[i].id%>">
+                            <img src="imgs/products/<%=products[i].image_url%>" alt="">
+                            <div class="des">
+                                <span>
+                                    <%=products[i].id%>
+                                </span>
+                                <h5>
+                                    <%=products[i].name%>
+                                </h5>
+                                <div class="star">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>
+                                    $<%=products[i].price%>
+                                </h4>
+                            </div>
+                            <i class="fal fa-shopping-cart cart"></i>
+                        </a>
+                    </div>
+                    <% } %>
+            </div>
+        </section>
+        <%} else{%>
+            <h3>This product was not found</h3>
+            <%}%>
+                <!-- pagination -->
+                <div id="pagination">
+                    <% for (let i=1; i <=totalPages; i++) { %>
+                        <a href="/search?keyword=<%= keyword %>&page=<%= i %>"
+                            class="<%= i === currentPage ? 'active' : '' %>">
+                            <%= i %>
+                        </a>
+                        <% } %>
+                </div>
+
+
+                <h2 class="other-products">Other Products</h2>
+                <section id="product1" class="section-p1">
+                    <div class="pro-container">
+                        <% for(var i=0; i < similarProducts.length; i++) { %>
+                            <div class="pro">
+                                <a href="/shop/proDetails/<%=similarProducts[i].id%>">
+                                    <img src="imgs/products/<%=similarProducts[i].image_url%>" alt="">
+                                    <div class="des">
+                                        <span>
+                                            <%=similarProducts[i].id%>
+                                        </span>
+                                        <h5>
+                                            <%=similarProducts[i].name%>
+                                        </h5>
+                                        <div class="star">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <h4>
+                                            $<%=similarProducts[i].price%>
+                                        </h4>
+                                    </div>
+                                    <i class="fal fa-shopping-cart cart"></i>
+                                </a>
+                            </div>
+                            <% } %>
+                    </div>
+                </section>
+
+                <!-- footer -->
+                <footer class="section-p1">
+
+                    <div class="col">
+                        <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
+                        <h4>Contact</h4>
+                        <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
+                        <p><strong>Email: </strong>252quanghuy@gmail.com</p>
+                        <p><strong>Phone:</strong>0813118974</p>
+                        <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
+                        <div class="follow">
+                            <h4>Follow Me</h4>
+                            <div class="icon">
+                                <a href="https://www.facebook.com/huydz.252">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <i class="fab fa-instagram"></i>
+                                    <i class="fab fa-twitter"></i>
+                                    <i class="fab fa-youtube"></i>
+                                    <i class="fab fa-pinterest-p"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sec">
+                        <div class="col">
+                            <h4>About</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Delivery Information</a>
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms and Condition</a>
+                            <a href="#">Contact Us</a>
+                        </div>
+
+                        <div class="col">
+                            <h4>My Account</h4>
+                            <a href="#">Sign In</a>
+                            <a href="#">View Cart</a>
+                            <a href="#">My Account</a>
+                            <a href="#">My Wishlist</a>
+                            <a href="#">Track my Order</a>
+                            <a href="#">Help</a>
+
+                        </div>
+
+                        <div class="col install">
+                            <h4>Install App</h4>
+                            <p>From App Store or Google Play</p>
+
+                            <div class="row">
+                                <img src="/imgs/pay/app.jpg" alt="">
+                                <img src="/imgs/pay/play.jpg" alt="">
+                            </div>
+                            <p>Secured Payment Gateways</p>
+                            <img src="/imgs/pay/pay.png" alt="">
+                        </div>
+                    </div>
+                </footer>
+
+                <script src="/js/navbar.js"></script>
+
+</body>
+
+</html>

@@ -22,14 +22,15 @@ const Product = sequelize.define('Product', {
     stock: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
     },
     category_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
             model: 'categories',
-            key: 'id'
-        }
+            key: 'id',
+        },
     },
     image_url: {
         type: DataTypes.STRING(255),
@@ -50,7 +51,8 @@ const Product = sequelize.define('Product', {
     },
 }, {
     tableName: 'products',
-    timestamps: true, //tự động tạo các trường createdAt và updatedAt
+    timestamps: true,
 });
+
 
 module.exports = Product;

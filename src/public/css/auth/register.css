@@ -13,19 +13,27 @@ body {
 }
 
 /* Căn giữa form đăng ký */
-form {
+#form_register {
     background-color: #fff;
     padding: 20px 30px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
+    display: flex;
+    width: 700px;
 }
+
+.form_left,
+.form_right {
+    flex: 1;
+    padding: 10px;
+}
+
 
 /* Tiêu đề */
 h1 {
     text-align: center;
     margin-bottom: 20px;
+    margin-top: 70px;
     color: #444;
 }
 
@@ -33,11 +41,15 @@ h1 {
 label {
     font-weight: bold;
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 /* Các input */
-input {
+#name,
+#email,
+#password,
+#address,
+#phone {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -47,17 +59,21 @@ input {
     transition: border-color 0.3s;
 }
 
-input:focus {
+#name:focus,
+#email:focus,
+#password:focus,
+#address:focus,
+#phone:focus {
     border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 0 5px #218838;
 }
 
 /* Nút đăng ký */
-button {
+#register {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #3eab56;
     color: white;
     font-size: 16px;
     border: none;
@@ -66,8 +82,8 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+#register:hover {
+    background-color: #218838;
 }
 
 /* Căn chỉnh div bao quanh */
@@ -75,17 +91,32 @@ div {
     margin-bottom: 15px;
 }
 
-form div {
+#form_register div {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
-span {
-    text-decoration: none;
-}
-
-a button {
+.or {
     width: 100%;
+    text-align: center;
+}
+
+.a_back {
+    width: 100%;
+    text-align: center;
+}
+
+.back {
+    width: 100%;
+    padding: 10px;
+    background-color: #42a257;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }

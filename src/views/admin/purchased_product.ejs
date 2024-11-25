@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/css/admin/admin.css">
+    <link rel="stylesheet" href="/css/admin/purchased_product.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 </head>
@@ -32,81 +33,60 @@
     </nav>
 
     <!-- Nội dung chính (Main Content) -->
-    <!-- <div class="main-content">
+    <div class="main-content">
         <div id="admin-users" class="content-section">
-            
+
             <h2>Manage Users</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                </tbody>
-            </table>
-        </div>
-
-        <div id="admin-products" class="content-section">
-            
-            <h2>Manage Products</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                </tbody>
-            </table>
-        </div>
-
-        <div id="admin-categories" class="content-section">
-           
-            <h2>Manage Categories</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                </tbody>
-            </table>
-        </div>
-
-        <div id="admin-purchased-products" class="content-section">
-            
-            <h2>Manage Purchased Products</h2>
-            <table>
-                <thead>
-                    <tr>
                         <th>User ID</th>
+                        <th>User Name</th>
                         <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Image</th>
                         <th>Quantity</th>
                         <th>Size</th>
-                        <th>Date Purchased</th>
+                        <th>Order Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                   
+                    <%if(listData.length> 0){%>
+                        <%listData.forEach(data=> {%>
+                            <tr>
+                                <td>
+                                    <%=data.id_user%>
+                                </td>
+                                <td>
+                                    <%=data.name_user%>
+                                </td>
+                                <td>
+                                    <%=data.id_pro%>
+                                </td>
+                                <td>
+                                    <%=data.product.name%>
+                                </td>
+                                <td>
+                                    <img src="/imgs/products/<%=data.product.image_url%>">
+                                </td>
+                                <td>
+                                    <%=data.quantity%>
+                                </td>
+                                <td>
+                                    <%=data.size%>
+                                </td>
+                                <th>
+                                    <%=data.order_date%>
+                                </th>
+                            </tr>
+                            <%})%>
+                                <%}else{%>
+                                    <h3>No products have been purchased yet</h3>
+                                    <%}%>
                 </tbody>
             </table>
         </div>
-    </div> -->
+    </div>
 
 
     <!-- JavaScript -->

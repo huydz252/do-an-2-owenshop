@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Show Edit Modal
     document.querySelectorAll('.edit-btn').forEach(btn => {
         btn.addEventListener('click', function () {
-            console.log('click edit')
             // Đảm bảo bạn lấy đúng data từ button
             const productData = btn.dataset;
 

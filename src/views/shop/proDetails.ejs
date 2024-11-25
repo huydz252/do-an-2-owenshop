@@ -31,9 +31,14 @@
 <body>
     <section id="header">
         <a href="#"><img src="/imgs/logo/logo.png"></a>
+        <div class="search">
+            <form action="/search">
+                <input type="text" name="name" placeholder="Search here!">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
         <div>
             <ul id="navbar">
-                <a href="/admin"><i class="fa-solid fa-lock"></i></a>
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop" class="active">Shop</a></li>
                 <li><a href="">Blog</a></li>
@@ -45,12 +50,13 @@
                     </span>
                 </li>
                 <% if (!user) { %>
-                    <a href="/auth/loginForm" class="btn btn-primary">Đăng nhập</a>
+                    <a href="/auth/loginForm" class="btn btn-primary">Login</a>
                     <% } else { %>
                         <div class="dropdown">
                             <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
                                 aria-expanded="false"></i>
                             <ul class="dropdown-menu" aria-labelledby="userIcon">
+                                <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
                                 <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
                             </ul>
                         </div>
@@ -103,6 +109,9 @@
                 <h2>
                     $<%=rows.price%>
                 </h2>
+                <p>
+                    stock: <%=rows.stock%>
+                </p>
                 <h4>Product details</h4>
                 <span>
                     <%=rows.description%>
@@ -206,7 +215,7 @@
             <p><strong>Phone:</strong>0813118974</p>
             <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
             <div class="follow">
-                <h4>Follow Us</h4>
+                <h4>Follow Me</h4>
                 <div class="icon">
                     <a href="https://www.facebook.com/huydz.252">
                         <i class="fab fa-facebook-f"></i>

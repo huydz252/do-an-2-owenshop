@@ -7,8 +7,8 @@
     <title>Owen Shop</title>
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,17 +25,22 @@
     <link rel="stylesheet" href="/css/reuse/footer.css">
     <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/reuse/pagination.css">
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/shop.css">
 </head>
 
 <body>
     <section id="header">
         <a href="#"><img src="/imgs/logo/logo.png"></a>
+        <div class="search">
+            <form action="/search">
+                <input type="text" name="name" placeholder="Search here!">
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
         <div>
             <ul id="navbar">
-                <a href="/admin"><i class="fa-solid fa-lock"></i></a>
-                <li><a href="/" class="active">Home</a></li>
-                <li><a href="/shop">Shop</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop" class="active">Shop</a></li>
                 <li><a href="">Blog</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Contact</a></li>
@@ -45,12 +50,13 @@
                     </span>
                 </li>
                 <% if (!user) { %>
-                    <a href="/auth/loginForm" class="btn btn-primary">Đăng nhập</a>
+                    <a href="/auth/loginForm" class="btn btn-primary">Login</a>
                     <% } else { %>
                         <div class="dropdown">
                             <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
                                 aria-expanded="false"></i>
                             <ul class="dropdown-menu" aria-labelledby="userIcon">
+                                <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
                                 <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
                             </ul>
                         </div>
@@ -69,46 +75,9 @@
         </div>
     </section>
 
-    <section id="hero">
-        <h4>Trade-in-fair</h4>
-        <h2>Super value deals</h2>
-        <h1>On all Products</h1>
-        <p>Save more with coupons and up to 70% off!</p>
-        <button>Shop Now</button>
-
-    </section>
-
-    <section id="feature" class="section-p1">
-        <div class="fe-box">
-            <img src="/imgs/features/f1.png" alt="">
-            <h6>Free Shipping</h6>
-        </div>
-
-        <div class="fe-box">
-            <img src="/imgs/features/f2.png" alt="">
-            <h6>Online Order</h6>
-        </div>
-
-        <div class="fe-box">
-            <img src="/imgs/features/f3.png" alt="">
-            <h6>Save Money</h6>
-        </div>
-
-        <div class="fe-box">
-            <img src="/imgs/features/f4.png" alt="">
-            <h6>Promotions</h6>
-        </div>
-
-        <div class="fe-box">
-            <img src="/imgs/features/f5.png" alt="">
-            <h6>Happy Sell</h6>
-        </div>
-
-        <div class="fe-box">
-            <img src="/imgs/features/f6.png" alt="">
-            <h6>F24/7 Support</h6>
-        </div>
-
+    <section id="page-header" class="shop-header">
+        <h2>#shop</h2>
+        <p>Save more than coupon x up to 70% off</p>
     </section>
 
     <section id="product1" class="section-p1">
@@ -142,6 +111,7 @@
                 <% } %>
         </div>
         <!-- pagination -->
+        <!-- pagination -->
         <div class="pagination">
             <% if (currentPage> 1) { %>
                 <a href="/shop?page=1"><i class="fas fa-angle-double-left"></i></a>
@@ -159,68 +129,10 @@
                         <a href="/shop?page=<%= totalPages %>"><i class="fas fa-angle-double-right"></i></a>
                         <% } %>
         </div>
-    </section>
-
-    <section id="sm-banner" class="section-p1">
-        <div class="banner-box">
-            <h4>crazy deals</h4>
-            <h2>buy 1 get 1 free</h2>
-            <span>The best classic dress is on sales at cara</span>
-            <button class="btn white">Learn More</button>
-
-        </div>
-
-        <div class="banner-box banner-box2">
-            <h4>spring/summer</h4>
-            <h2>upcoming season</h2>
-            <span>The best classic dress is on sales at cara</span>
-            <button class="btn white">Collection</button>
-
-        </div>
 
     </section>
 
-    <section id="banner3" class="section-p1">
-        <div class="banner-box">
-
-            <h2>SEASONAL SALES</h2>
-            <h3>Winter Collection -50% OFF</h3>
-
-        </div>
-
-        <div class="banner-box banner-img2">
-
-            <h2>SEASONAL SALES</h2>
-            <h3>Winter Collection -50% OFF</h3>
-
-        </div>
-
-        <div class="banner-box banner-img3">
-
-            <h2>SEASONAL SALES</h2>
-            <h3>Winter Collection -50% OFF</h3>
-
-        </div>
-
-    </section>
-
-    <section id="newsletter" class="section-p1">
-        <div class="newstext">
-            <h4>Sign Up for Newsletters</h4>
-            <p>Get Email updates about our latest shop and <span> special offers.</span> </p>
-        </div>
-        <div class="form">
-            <input type="text" placeholder="Your email address">
-            <button class="btn normal">Sign Up</button>
-        </div>
-
-        </div>
-
-    </section>
-
-    <!-- footer -->
     <footer class="section-p1">
-
         <div class="col">
             <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
             <h4>Contact</h4>
@@ -229,7 +141,7 @@
             <p><strong>Phone:</strong>0813118974</p>
             <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
             <div class="follow">
-                <h4>Follow Us</h4>
+                <h4>Follow Me</h4>
                 <div class="icon">
                     <a href="https://www.facebook.com/huydz.252">
                         <i class="fab fa-facebook-f"></i>
@@ -275,11 +187,14 @@
                 <img src="/imgs/pay/pay.png" alt="">
             </div>
         </div>
+
     </footer>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <script src="/js/navbar.js"></script>
 </body>
 

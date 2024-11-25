@@ -4,7 +4,6 @@
     position: fixed;
     top: 0;
     width: 100%;
-    overflow: hidden;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -19,6 +18,41 @@
     height: 60px;
     padding-right: 10px;
 }
+
+/* search */
+.search {
+    border: 1px solid #ccc;
+    padding: 5px 3px;
+    position: relative;
+    width: 350px;
+    height: 47px;
+    border-radius: 3px;
+    background-color: white;
+}
+
+.search form input {
+    position: absolute;
+    top: 4px;
+    padding-left: 5px;
+    width: 343px;
+    height: 38px;
+    border: none;
+}
+
+.search form button {
+    position: absolute;
+    right: 5px;
+    top: 6px;
+    width: 55px;
+    height: 34px;
+    border: transparent;
+    border-radius: 3px;
+    background-color: #0f7e74;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
 
 #navbar {
     display: flex;
@@ -154,10 +188,11 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #333;
+    background-color: #d4d1d1;
     border-radius: 5px;
     min-width: 160px;
     padding: 10px 0;
+    z-index: 1000;
 }
 
 .dropdown-menu.show {

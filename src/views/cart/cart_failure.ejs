@@ -2,13 +2,26 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Owen Shop</title>
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
+    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,68 +33,71 @@
         href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900;&display:swap">
     <!-- css -->
     <link rel="stylesheet" href="/css/reuse/root.css">
+    <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
     <link rel="stylesheet" href="/css/reuse/resposive.css">
-    <link rel="stylesheet" href="/css/reuse/header-nav.css">
-    <link rel="stylesheet" href="/css/auth/login.css">
+    <link rel="stylesheet" href="/css/cart.css">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header,
+        .content {
+            flex: 1;
+        }
+
+        h3 {
+            text-align: center;
+            justify-self: center;
+            margin-top: 150px;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- header -->
     <section id="header">
         <a href="#"><img src="/imgs/logo/logo.png"></a>
         <div class="search">
             <form action="/search">
-                <input type="text" name="name" placeholder="Search here!" required>
+                <input type="text" name="name" placeholder="Search here!">
                 <button type="submit" class="btn">Search</button>
             </form>
         </div>
         <div>
             <ul id="navbar">
-                <li><a href="/" class="active">Home</a></li>
+
+                <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
                 <li><a href="">Blog</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Contact</a></li>
-                <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
-                    <span id="quantity">
-                        0
-                    </span>
+                <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
                 </li>
-                <a href="/auth/loginForm" class="btn btn-primary">Login</a>
-                <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
+                <div class="dropdown">
+                    <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
+                        aria-expanded="false"></i>
+                    <ul class="dropdown-menu" aria-labelledby="userIcon">
+                        <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
+                        <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
+                    </ul>
+                </div>
             </ul>
         </div>
         <div id="mobile">
             <a href="/cart"><i class="fal fa-shopping-bag"></i>
-                <span class="quantity">
-                    0
-                </span>
+
             </a>
             <i id="bar" class="fas fa-outdent"></i>
         </div>
     </section>
 
-    <div class="container">
-        <h2>Login</h2>
-        <p>You need to log in to use our services</p>
-        <form action="/auth/loginForm/login" method="POST" id="loginForm">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="login">Login</button>
-            <div class="alternative-option">
-                <span>or</span>
-                <a href="/auth/registerForm" class="register-link">Register</a>
-            </div>
-            <a href="/auth/adminLoginForm" class="adminLogin"><i>admin</i></a>
-        </form>
+    <div class="content">
+        <h3>Order failse, please try again</h3>
     </div>
-
 
     <!-- footer -->
     <footer class="section-p1">
@@ -102,6 +118,7 @@
                         <i class="fab fa-twitter"></i>
                         <i class="fab fa-youtube"></i>
                         <i class="fab fa-pinterest-p"></i>
+
                     </a>
                 </div>
             </div>
@@ -142,7 +159,9 @@
         </div>
     </footer>
 
+    <script src="/js/cart.js"></script>
     <script src="/js/navbar.js"></script>
+
 </body>
 
 </html>

@@ -1,11 +1,8 @@
-const connection = require("../config/database");
-const { Op, where, json } = require('sequelize');
-const bcrypt = require('bcrypt');
-const { getAllProducts, getProductById, updateCartNumber, getAllCategories } = require('../services/CRUDService')
+const { Op, where, json, Sequelize, DataTypes } = require('sequelize');
+const { getProductById, updateCartNumber } = require('../services/CRUDService');
 const Product = require('../models/product');
 const Category = require('../models/category');
-const User = require('../models/user');
-const { USE } = require("sequelize/lib/index-hints");
+
 
 const getHomepage = async (req, res) => {
     try {
@@ -19,17 +16,18 @@ const getHomepage = async (req, res) => {
             offset: offset
         });
 
+
         const totalProducts = await Product.count();
         const totalPages = Math.ceil(totalProducts / limit);
 
         // Tính toán số lượng giỏ hàng (nếu có session)
         const cartCount = req.session && req.session.user ? updateCartNumber(req, res) : 0;
 
-        return res.render('home.ejs', {
-            rows: products, // Danh sách sản phẩm
-            cartCount, // Số lượng giỏ hàng
-            currentPage: page, // Trang hiện tại
-            totalPages: totalPages, // Tổng số trang
+        return res.render('common/home.ejs', {
+            rows: products,
+            cartCount,
+            currentPage: page,
+            totalPages: totalPages,
             user: req.session && req.session.user ? req.session.user : null // Người dùng (nếu có)
         });
     } catch (error) {
@@ -57,7 +55,7 @@ const getShop = async (req, res) => {
         const totalPages = Math.ceil(totalProducts / limit);
 
         var cartCount = updateCartNumber(req, res)
-        return res.render('shop.ejs',
+        return res.render('shop/shop.ejs',
             {
                 rows: products,
                 cartCount,
@@ -109,7 +107,6 @@ const getProductDetails = async (req, res) => {
             randomRelatedProducts = getRandomProducts(relatedProducts, 3);
         }
 
-        //lấy all category --> in ra gợi ý sp khác
         let listCategory = [];
         listCategory = await Category.findAll({
             attributes: ['id']
@@ -117,10 +114,9 @@ const getProductDetails = async (req, res) => {
         function getRandomElement(arr) {
             return arr[Math.floor(Math.random() * arr.length)];
         }
-        //lấy all pro với category = randomCategory (other products)
         let randomCategory;
         let otherProducts;
-        // nếu listCategory có chứa category_id khác id của sp hiện tại thì thực hiện random
+
         if (listCategory.length > 1) {
             do {
                 randomCategory = getRandomElement(listCategory)
@@ -135,7 +131,7 @@ const getProductDetails = async (req, res) => {
             })
         }
         if (product) {
-            return res.render('proDetails.ejs', {
+            return res.render('shop/proDetails.ejs', {
                 rows: product,
                 threeRelatedProducts: randomRelatedProducts,
                 relatedProducts: relatedProducts,
@@ -173,6 +169,67 @@ const postAddToCart = async (req, res) => {
     res.redirect('/cart')
 };
 
+const postSearch = async (req, res) => {
+    try {
+        const keyword = req.query.name || '';
+        const page = parseInt(req.query.page) || 1;
+        const limit = 10;
+        const offset = (page - 1) * limit;
+
+        // Tìm kiếm sản phẩm
+        const { rows: products, count } = await Product.findAndCountAll({
+            where: {
+                name: {
+                    [Op.like]: `%${keyword}%`
+                }
+            },
+            attributes: ['id', 'name', 'description', 'price', 'stock', 'category_id', 'image_url'],
+            limit: limit,
+            offset: offset
+        })
+        console.log('check results: ', products)
+
+        const totalPages = Math.ceil(count / limit);
+        var cartCount = updateCartNumber(req, res)
+
+        //lấy all category --> in ra gợi ý sp khác
+        let listCategory = await Category.findAll({
+            attributes: ['id']
+        })
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        //lấy all pro với category = randomCategory (other products)
+        let similarProducts = []
+        let randomCategory = {}
+        if (listCategory.length > 1) {
+            do {
+                randomCategory = getRandomElement(listCategory);
+            } while (products.length > 0 && randomCategory.id === products[0].category_id);
+            similarProducts = await Product.findAll({
+                where: {
+                    'category_id': randomCategory.id
+                },
+                limit: limit
+            })
+        }
+        console.log('check other products', similarProducts)
+
+        res.render('common/search', {
+            products: products,
+            currentPage: page,
+            totalPages: totalPages,
+            keyword: keyword,
+            cartCount: cartCount,
+            similarProducts: similarProducts
+        });
+    } catch (error) {
+        console.error('Error searching products:', error);
+        res.status(500).json({ message: 'Error searching products' });
+    }
+};
+
 module.exports = {
-    getHomepage, getShop, getProductDetails, postAddToCart
+    getHomepage, getShop, getProductDetails, postAddToCart,
+    postSearch
 }

@@ -5,28 +5,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <!-- css -->
+    <link rel="stylesheet" href="/css/reuse/root.css">
+    <link rel="stylesheet" href="/css/reuse/footer.css">
+    <link rel="stylesheet" href="/css/reuse/resposive.css">
+    <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/auth/register.css">
 </head>
 
 <body>
+    <section id="header">
+        <a href="#"><img src="/imgs/logo/logo.png"></a>
+        <div class="search">
+            <form action="/search">
+                <input type="text" name="name" placeholder="Search here!" required>
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
+        <div>
+            <ul id="navbar">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="">Blog</a></li>
+                <li><a href="">About</a></li>
+                <li><a href="">Contact</a></li>
+                <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
+                    <span id="quantity">
+                        0
+                    </span>
+                </li>
+                <a href="/auth/loginForm" class="btn btn-primary">Login</a>
+                <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="/cart"><i class="fal fa-shopping-bag"></i>
+                <span class="quantity">
+                    0
+                </span>
+            </a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
     <h1>Register</h1>
-    <form action="/auth/registerForm/register" method="POST">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+    <form action="/auth/registerForm/register" method="POST" id="form_register">
+        <div class="form_left">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
         </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button type="submit">Register</button>
-        <div>
-            <span>or</span>
-            <a href="/auth/loginForm"><button type="button">Login</button></a>
+        <div class="form_right">
+            <div>
+                <label for="address">Address:</label>
+                <input type="address" id="address" name="address" required>
+            </div>
+            <div>
+                <label for="phone">Phone:</label>
+                <input type="phone" id="phone" name="phone" required>
+            </div>
+            <button type="submit" id="register">Register</button>
+            <div>
+                <span class="or">or</span>
+                <a href="/auth/loginForm" class="a_back"><button type="button" class="back">Login</button></a>
+            </div>
         </div>
     </form>
 

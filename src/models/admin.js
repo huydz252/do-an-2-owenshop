@@ -1,8 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const { NOT } = require('sequelize/lib/deferrable');
 
-const User = sequelize.define('Users', {
+const Admin = sequelize.define('Admin', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -24,22 +23,10 @@ const User = sequelize.define('Users', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
-    cart: {
-        type: DataTypes.JSON,
-        allowNull: true,
-    },
-    address: {
-        type: DataTypes.STRING(255),
-        allowNull: true
-    },
-    phone: {
-        type: DataTypes.INTEGER(11),
-        allowNull: false
-    }
 
 }, {
-    tableName: 'users',
+    tableName: 'admins',
     timestamps: false,  // Vô hiệu hóa tự động thêm createdAt, updatedAt
 })
 
-module.exports = User
+module.exports = Admin

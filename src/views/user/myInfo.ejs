@@ -7,8 +7,8 @@
     <title>Owen Shop</title>
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,35 +21,42 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/reuse/root.css">
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
+    <link rel="stylesheet" href="/css/reuse/products.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
     <link rel="stylesheet" href="/css/reuse/resposive.css">
-    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="/css/reuse/pagination.css">
+    <link rel="stylesheet" href="/css/user/myInfo.css">
 </head>
 
 <body>
-    <!-- header -->
     <section id="header">
         <a href="#"><img src="/imgs/logo/logo.png"></a>
+        <div class="search">
+            <form action="/search">
+                <input type="text" name="name" placeholder="Search here!" required>
+                <button type="submit" class="btn">Search</button>
+            </form>
+        </div>
         <div>
             <ul id="navbar">
-                <a href="/admin"><i class="fa-solid fa-lock"></i></a>
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
                 <li><a href="">Blog</a></li>
                 <li><a href="">About</a></li>
                 <li><a href="">Contact</a></li>
-                <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
+                <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         <%=cartCount%>
                     </span>
                 </li>
                 <% if (!user) { %>
-                    <a href="/auth/loginForm" class="btn btn-primary">Đăng nhập</a>
+                    <a href="/auth/loginForm" class="btn btn-primary">Login</a>
                     <% } else { %>
                         <div class="dropdown">
                             <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
                                 aria-expanded="false"></i>
                             <ul class="dropdown-menu" aria-labelledby="userIcon">
+                                <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
                                 <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
                             </ul>
                         </div>
@@ -67,105 +74,118 @@
             <i id="bar" class="fas fa-outdent"></i>
         </div>
     </section>
-    <!-- Cart Page -->
-    <section id="cart_content" class="section-p1">
-        <!-- top -->
-        <section id="page-header" class="about-header">
-            <span><a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> OWEN </a> / <a
-                    href="/cart">CART</a> </span>
 
-        </section>
-        <table width="100%" class="product-table">
-            <%if(cart.length>0){%>
-                <thead>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Adress</td>
+                <td>Phone</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <%=myInfo.id%>
+                </td>
+                <td>
+                    <%=myInfo.name%>
+                </td>
+                <td>
+                    <%=myInfo.email%>
+                </td>
+                <td>
+                    <%=myInfo.address%>
+                </td>
+                <td>
+                    <%=myInfo.phone%>
+                </td>
+                <td class="actions">
+                    <button class="edit-btn" data-id="<%= myInfo.id %>" data-name="<%= myInfo.name %>"
+                        data-email="<%= myInfo.email %>" data-address="<%= myInfo.address %>"
+                        data-phone="<%= myInfo.phone %>">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3 class="purchased_products"> Purchased Products</h3>
+    <table id="purchased_products">
+        <th>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Image</td>
+                <td>Descriptions</td>
+                <td>Price</td>
+                <td>Size</td>
+                <td>Quantity</td>
+            </tr>
+        </th>
+        <tbody>
+            <%if(purchasedProductsData.length> 0){%>
+                <%purchasedProductsData.forEach(product=> {%>
                     <tr>
-                        <td style="color: red;">DELETE</td>
-                        <td>PRODUCT</td>
-                        <td>NAME</td>
-                        <td>PRICE</td>
-                        <td>QUANTITY</td>
-                        <td>SIZE</td>
-                        <td>TOTAL PRICE</td>
-                        <td>STATUS</td>
+                        <td>
+                            <%=product.products.id%>
+                        </td>
+                        <td>
+                            <%=product.products.name%>
+                        </td>
+                        <td>
+
+                            <a href="/shop/proDetails/<%=product.products.id%>"><img
+                                    src="/imgs/products/<%=product.products.image_url%>"
+                                    alt="<%=product.products.name%>">
+                        </td></a>
+                        <td>
+                            <%=product.products.description%>
+                        </td>
+                        <td>
+                            $<%=product.products.price%>
+                        </td>
+                        <td>
+                            <%=product.productSize%>
+                        </td>
+                        <td>
+                            <%=product.productQuantity%>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
+                    <%})%>
+                        <%}else{%>
+                            <h3>there is no purchased product</h3>
+                            <%}%>
+        </tbody>
+    </table>
 
-                    <% for(var i=0; i < cart.length; i++) { %>
-                        <tr>
-                            <td id="delete-all">
-                                <a href="/cart/deleteProduct/<%=cart[i].id%>"><i
-                                        class="fa-regular fa-trash-can"></i></a>
-                            </td>
-                            <td>
-                                <a href="/shop/proDetails/<%=cart[i].id%>"><img
-                                        src="/imgs/products/<%=cart[i].image_url%>" alt=""></a>
-                            </td>
-                            <td>
-                                <%=cart[i].name%>
-                            </td>
-                            <td>
-                                $<%=cart[i].price%>
-                            </td>
-                            <td>
-                                <div class="quantity-selector">
-                                    <button type="button" class="decrease" class="btnHover" data-id="<%= cart[i].id %>"
-                                        data-price="<%= cart[i].price %>"
-                                        data-quantity="<%= cart[i].quantity %>">-</button>
-                                    <input class="count" type="number" value="<%=cart[i].quantity%>" min="0">
-                                    <button type="button" class="increase" class="btnHover" data-id="<%= cart[i].id %>"
-                                        data-price="<%= cart[i].price %>"
-                                        data-quantity="<%= cart[i].quantity%>">+</button>
-                                </div>
-                            </td>
-                            <td>
-                                <span>
-                                    <%=cart[i].size%>
-                                </span>
-                            </td>
-                            <td>
-                                <span class="total-price-product">$<%=cart[i].quantity*cart[i].price%></span>
-                            </td>
-                            <td class="check">
-                                <input type="checkbox" class="product-checkbox" data-id="<%= cart[i].id %>"
-                                    data-price="<%= cart[i].price %>" data-quantity="<%= cart[i].quantity %>" />
-                            </td>
-                        </tr>
-                        <%}%>
-                            <%}else{%>
-                                <h3>There are no products</h3>
-                                <%}%>
-                </tbody>
+    <!-- Modal for Edit -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Edit User</h2>
+            <form id="editUserForm" action="/user/myInfo/editUser" method="post">
+                <input type="hidden" id="id_edit" name="id_edit">
 
-        </table>
+                <label for="name_edit">Name:</label>
+                <input type="text" id="name_edit" name="name_edit" required>
 
-    </section>
+                <label for="emai_edit">Emai:</label>
+                <input type="text" id="email_edit" name="email_edit" required>
 
-    <!-- Cart Add -->
-    <section id="cart-add" class="section-p1">
-        <div class="coupon">
-            <div>
-                <h4>Áp dụng phiếu giảm giá</h4>
-                <input type="text" placeholder="Nhập mã giảm giá">
-                <button>Áp dụng</button>
-            </div>
-            <div>
-                <h4>tổng giỏ hàng</h4>
-                <table class="totalCart">
+                <label for="address_edit">Address:</label>
+                <textarea id="address_edit" name="address_edit" rows="4" required></textarea>
 
-                    <span id="total-price-cart">
+                <label for="phone_edit">Phone:</label>
+                <input type="text" id="phone_edit" name="phone_edit" required>
 
-                    </span>
-                </table>
-                <button id="pay">
-                    <a href="#modal__display">Tiến Hành Kiểm Tra</a>
-                </button>
-            </div>
-            <div class="save">
-                <a href="/cart"><button class="btn-green">Save</button></a>
-            </div>
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
+            </form>
         </div>
-    </section>
     </div>
 
     <!-- footer -->
@@ -179,7 +199,7 @@
             <p><strong>Phone:</strong>0813118974</p>
             <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
             <div class="follow">
-                <h4>Follow Us</h4>
+                <h4>Follow Me</h4>
                 <div class="icon">
                     <a href="https://www.facebook.com/huydz.252">
                         <i class="fab fa-facebook-f"></i>
@@ -227,9 +247,9 @@
         </div>
     </footer>
 
-    <script src="/js/cart.js"></script>
-    <script src="/js/navbar.js"></script>
 
+    <script src="/js/navbar.js"></script>
+    <script src="/js/user/myInfo.js"></script>
 </body>
 
 </html>
