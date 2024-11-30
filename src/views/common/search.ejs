@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/products.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/reuse/pagination.css">
     <link rel="stylesheet" href="/css/search.css">
 </head>
@@ -42,9 +41,7 @@
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         <%=cartCount%>
@@ -111,14 +108,14 @@
             <h3>This product was not found</h3>
             <%}%>
                 <!-- pagination -->
-                <div id="pagination">
+                <!-- <div id="pagination">
                     <% for (let i=1; i <=totalPages; i++) { %>
                         <a href="/search?keyword=<%= keyword %>&page=<%= i %>"
                             class="<%= i === currentPage ? 'active' : '' %>">
                             <%= i %>
                         </a>
                         <% } %>
-                </div>
+                </div> -->
 
 
                 <h2 class="other-products">Other Products</h2>

@@ -13,6 +13,7 @@
 <body>
     <!-- Thanh tiêu đề (Header) -->
     <header class="admin-header">
+        <button class="toggle-button" onclick="toggleSidebar()">☰ Menu</button>
         <h1>Admin Dashboard</h1>
         <div class="admin-options">
             <span>Welcome, Admin</span>
@@ -21,79 +22,78 @@
     </header>
 
     <!-- Thanh điều hướng (Sidebar Menu) -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebarMenu">
         <ul>
             <li><a href="/admin/userForm"><i class="fas fa-users"></i> Users</a></li>
-            <li><a href="/admin/productForm" class="active"><i class="fas fa-box"></i> Products</a></li>
+            <li><a href="/admin/productForm"><i class="fas fa-box"></i> Products</a></li>
             <li><a href="/admin/categoryForm"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="/admin/purchased_productForm"><i class="fas fa-shopping-cart"></i> Purchased Products</a></li>
+            <li class="sidebarClose hidden"><i class="fa-solid fa-x"></i> Close</li>
         </ul>
     </nav>
 
+    <!-- Nội dung chính -->
     <div class="main-content">
-        <h1>Manager Product </h1>
-        <button id="addBtn" class="add-btn">Add Product</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Is Active</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% rows.forEach((product, index)=> { %>
+        <div class="container">
+            <h1 class="title_h1">Product Management</h1>
+            <button id="addBtn" class="add-btn">Add Product</button>
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            <%= product.id %>
-                        </td>
-                        <td>
-                            <%= product.name %>
-                        </td>
-                        <td class="description">
-                            <%= product.description %>
-                        </td>
-                        <td>
-                            <%= product.price %>
-                        </td>
-                        <td>
-                            <%= product.stock %>
-                        </td>
-                        <td>
-                            <%= product.category %>
-                        </td>
-                        <td><img src="/imgs/products/<%= product.image %>" width="100"></td>
-                        <td>
-                            <%= product.createdAt %>
-                        </td>
-                        <td>
-                            <%= product.updatedAt %>
-                        </td>
-                        <td>
-                            <%= product.is_active==1 ? "Active" : "Inactive" %>
-                        </td>
-                        <td class="actions">
-                            <button class="edit-btn" data-index="<%= index %>" data-id="<%= product.id %>"
-                                data-name="<%= product.name %>" data-description="<%= product.description %>"
-                                data-price="<%= product.price %>" data-stock="<%= product.stock %>"
-                                data-category-id="<%= product.category_id %>" data-categoryName="<%= categories.name %>"
-                                data-image-url="<%= product.image %>"
-                                data-is-active="<%= product.is_active %>">Edit</button>
-                            <button class="delete-btn" data-index="<%= index %>"
-                                data-id="<%= product.id %>">Delete</button>
-                        </td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Image</th>
+                        <th>Actions</th>
                     </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% rows.forEach((product, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= product.id %>
+                            </td>
+                            <td>
+                                <%= product.name %>
+                            </td>
+                            <td><img src="/imgs/products/<%= product.image %>" alt="<%= product.name %>"></td>
+                            <td class="actions">
+                                <button class="view-btn" data-index="<%= index %>"
+                                    onclick="openViewModal(event)">View</button>
+                                <button class="edit-btn" data-index="<%= index %>" data-id="<%= product.id %>"
+                                    data-name="<%= product.name %>" data-description="<%= product.description %>"
+                                    data-price="<%= product.price %>" data-stock="<%= product.stock %>"
+                                    data-category="<%= product.category %>">Edit</button>
+                                <button class="delete-btn" data-index="<%= index %>"
+                                    data-id="<%= product.id %>">Delete</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Details -->
+    <div id="viewModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Product Details</h2>
+            <label for="view_name">Name:</label>
+            <input type="text" id="view_name" readonly>
+
+            <label for="view_description">Description:</label>
+            <textarea id="view_description" readonly></textarea>
+
+            <label for="view_price">Price:</label>
+            <input type="text" id="view_price" readonly>
+
+            <label for="view_stock">Stock:</label>
+            <input type="text" id="view_stock" readonly>
+
+            <label for="view_category">Category:</label>
+            <input type="text" id="view_category" readonly>
+
+            <button type="button" class="cancel-btn" onclick="closeViewModal()">Close</button>
+        </div>
     </div>
 
     <!-- Modal for Add -->
@@ -182,7 +182,36 @@
         </div>
     </div>
 
+    <script src="/js/admin/admin.js"></script>
     <script src="/js/admin/product.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+
+        function openViewModal(event) {
+            const index = event.target.dataset.index;
+            try {
+                const rows = JSON.parse(document.getElementById('productData').textContent);
+                const product = rows[index];
+                document.getElementById('view_name').value = product.name;
+                document.getElementById('view_description').value = product.description;
+                document.getElementById('view_price').value = product.price;
+                document.getElementById('view_stock').value = product.stock;
+                document.getElementById('view_category').value = product.category;
+
+                document.getElementById('viewModal').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error parsing product data:', error);
+            }
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewModal').classList.add('hidden');
+        }
+    </script>
+    <script type="application/json" id="productData">
+    <%- JSON.stringify(rows).replace(/</g, '\u003c') %>
+</script>
 </body>
 
 </html>

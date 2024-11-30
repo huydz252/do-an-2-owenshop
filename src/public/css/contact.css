@@ -1,0 +1,247 @@
+/* Contact-page */
+
+#page-header {
+    margin-top: 60px;
+    background-image: url('../imgs/banner/b21.jpg');
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#page-header p {
+    font-size: 24px;
+    color: white;
+}
+
+#contact-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#contact-details .details {
+    width: 40%;
+}
+
+#contact-details .details span,
+#contact-details form span {
+    font-size: 12px;
+}
+
+#contact-details .details h2,
+#contact-details form h2 {
+    font-size: 26px;
+    line-height: 35px;
+    padding: 20px 0;
+}
+
+#contact-details .details h3 {
+    font-size: 13px;
+    padding-bottom: 15px;
+}
+
+#contact-details .details li {
+    display: flex;
+    list-style: none;
+    padding: 10px 0;
+}
+
+#contact-details .details li i {
+    font-size: 14px;
+    padding-right: 22px;
+}
+
+#contact-details .details li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#contact-details .map {
+    width: 55%;
+    height: 400px;
+}
+
+#contact-details .map iframe {
+    width: 100%;
+    height: 100%;
+}
+
+#form-details {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    padding: 80px;
+    border: 1px solid #1e1e1e;
+}
+
+#form-details form {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#form-details form input,
+#form-details form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    outline: none;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+}
+
+#form-details form button {
+    background-color: #0f6e2f;
+    color: white;
+    width: 100px;
+    height: 40px;
+}
+
+#form-details .people {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#form-details .people div {
+    padding-bottom: 55px;
+    display: flex;
+    align-items: flex-start;
+}
+
+#form-details .people div img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+#form-details .people div p {
+    margin-top: 12px;
+}
+
+#form-details .people div p span {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+}
+
+/* Tablet và thiết bị di động */
+@media screen and (max-width: 1024px) {
+    #contact-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #contact-details .details,
+    #contact-details .map {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #form-details {
+        flex-direction: column;
+        padding: 40px;
+        margin: 20px;
+    }
+
+    #form-details form {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    #form-details .people {
+        align-items: center;
+        width: 100%;
+    }
+
+    #form-details .people div {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    #form-details .people div img {
+        margin-bottom: 10px;
+    }
+
+    #contact-details .details li i {
+        padding-right: 10px;
+    }
+}
+
+/* Điện thoại nhỏ hơn (dưới 768px) */
+@media screen and (max-width: 768px) {
+
+    #contact-details .details span,
+    #contact-details form span {
+        font-size: 10px;
+    }
+
+    #contact-details .details h2,
+    #contact-details form h2 {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    #contact-details .details h3 {
+        font-size: 12px;
+    }
+
+    #contact-details .details li {
+        padding: 8px 0;
+    }
+
+    #contact-details .details li i {
+        font-size: 12px;
+        padding-right: 10px;
+    }
+
+    #contact-details .details li p {
+        font-size: 12px;
+    }
+
+    #form-details {
+        padding: 20px;
+    }
+
+    #form-details form input,
+    #form-details form textarea {
+        padding: 10px 12px;
+        margin-bottom: 15px;
+    }
+
+    #form-details .people div p span {
+        font-size: 14px;
+    }
+}
+
+/* Điện thoại cực nhỏ (dưới 480px) */
+@media screen and (max-width: 480px) {
+    #contact-details {
+        padding: 10px;
+    }
+
+    #form-details {
+        padding: 15px;
+    }
+
+    #form-details form input,
+    #form-details form textarea {
+        width: 100%;
+        padding: 8px 10px;
+    }
+
+    #form-details form button {
+        width: 100%;
+        height: 35px;
+    }
+
+    #form-details .people div img {
+        width: 70px;
+        height: 70px;
+    }
+}

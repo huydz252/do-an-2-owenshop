@@ -35,7 +35,6 @@
     <link rel="stylesheet" href="/css/reuse/root.css">
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/cart.css">
     <style>
         body {
@@ -71,24 +70,33 @@
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
+                    <span id="quantity">
+                        <%=cartCount%>
+                    </span>
                 </li>
-                <div class="dropdown">
-                    <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
-                        aria-expanded="false"></i>
-                    <ul class="dropdown-menu" aria-labelledby="userIcon">
-                        <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
-                        <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
-                    </ul>
-                </div>
+                <% if (!user) { %>
+                    <a href="/auth/loginForm" class="btn btn-primary">Login</a>
+                    <% } else { %>
+                        <div class="dropdown">
+                            <i class="fa fa-user-circle dropdown-toggle" id="userIcon" data-bs-toggle="dropdown"
+                                aria-expanded="false"></i>
+                            <ul class="dropdown-menu" aria-labelledby="userIcon">
+                                <li><a href="/user/myInfo" class="dropdown-item">My Info</a></li>
+                                <li><a href="/auth/logout" class="dropdown-item">Log out</a></li>
+                            </ul>
+                        </div>
+
+                        <% } %>
+                            <li><span id="close"> <i class="fa-solid fa-x"></i></span></li>
             </ul>
         </div>
         <div id="mobile">
             <a href="/cart"><i class="fal fa-shopping-bag"></i>
-
+                <span class="quantity">
+                    <%=cartCount%>
+                </span>
             </a>
             <i id="bar" class="fas fa-outdent"></i>
         </div>

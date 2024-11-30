@@ -2,19 +2,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-</body>
-
-</html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Owen Shop</title>
@@ -35,25 +22,7 @@
     <link rel="stylesheet" href="/css/reuse/root.css">
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/cart.css">
-    <style>
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #header,
-        .content {
-            flex: 1;
-        }
-
-        h3 {
-            text-align: center;
-            justify-self: center;
-            margin-top: 150px;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/contact.css">
 </head>
 
 <body>
@@ -70,8 +39,8 @@
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
+                <li><a href="/contact" class="active">Contact</a></li>
+                <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         <%=cartCount%>
                     </span>
@@ -102,9 +71,96 @@
         </div>
     </section>
 
-    <div class="content">
-        <h3>Order failse, please try again</h3>
-    </div>
+    <!-- contact page -->
+    <section id="page-header" class="about-header">
+        <p>#contact</p>
+    </section>
+
+    <!-- Contact page -->
+    <section id="contact-details" class="section-p1">
+        <div class="details">
+            <span>Contact</span>
+            <h2>Visit one of our dealer locations or contact us today.</h2>
+            <h3>Head office</h3>
+            <div>
+                <li>
+                    <i class="fa-solid fa-map"></i>
+                    <p>Da Nang city, Quan Ngu Hanh Son</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-envelope"></i>
+                    <p>252quanghuy@gmail.com</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-phone"></i>
+                    <p>0813118974</p>
+                </li>
+                <li>
+                    <i class="fa-solid fa-clock"></i></i>
+                    <p>9:00-21:00, Mon-Sat</p>
+                </li>
+            </div>
+        </div>
+
+        <div class="map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3835.7332975516065!2d108.24978007459816!3d15.97529824194676!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142108997dc971f%3A0x1295cb3d313469c9!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2jhu4cgVGjDtG5nIHRpbiB2w6AgVHJ1eeG7gW4gdGjDtG5nIFZp4buHdCAtIEjDoG4!5e0!3m2!1svi!2s!4v1715837599207!5m2!1svi!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+    </section>
+
+    <!-- Form details -->
+    <section id="form-details">
+        <form action="">
+            <span>Leave a message</span>
+            <h2>We love hearing from you</h2>
+            <input type="text" placeholder="Your Name">
+            <input type="text" placeholder="E-Mail">
+            <input type="text" placeholder="Subject">
+            <textarea name="text" id="" cols="30" rows="10" placeholder="Your Message"></textarea>
+            <button class="button-normal">Gửi</button>
+        </form>
+        <div class="people">
+            <div>
+                <img src="/imgs/people/1.png" alt="">
+                <p>
+                    <span>Trần Quang Huy</span>
+                    <br>
+                    Marketing Management
+                    <br>
+                    Phone: + 0813118974
+                    <br>
+                    Email: 252quanghuy@gmail.com
+                </p>
+            </div>
+            <div>
+                <img src="imgs/people/3.png" alt="">
+                <p>
+                    <span>Trần Quang Huy</span>
+                    <br>
+                    Marketing Management
+                    <br>
+                    Phone: + 0813118974
+                    <br>
+                    Email: 252quanghuy@gmail.com
+                </p>
+            </div>
+            <div>
+                <img src="imgs/people/1.png" alt="">
+                <p>
+                    <span>Trần Quang Huy</span>
+                    <br>
+                    Marketing Management
+                    <br>
+                    Phone: + 0813118974
+                    <br>
+                    Email: 252quanghuy@gmail.com
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- footer -->
     <footer class="section-p1">
@@ -125,7 +181,6 @@
                         <i class="fab fa-twitter"></i>
                         <i class="fab fa-youtube"></i>
                         <i class="fab fa-pinterest-p"></i>
-
                     </a>
                 </div>
             </div>
@@ -166,9 +221,7 @@
         </div>
     </footer>
 
-    <script src="/js/cart.js"></script>
     <script src="/js/navbar.js"></script>
-
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 const { Op, where, json, Sequelize, DataTypes } = require('sequelize');
 const { getProductById, updateCartNumber } = require('../services/CRUDService');
+const dayjs = require('dayjs');
 
 const User = require('../models/user');
 const PurchasedProduct = require('../models/purchased_products');
@@ -31,11 +32,18 @@ const getMyInfo = async (req, res) => {
         let productInfo = JSON.parse(purchasedProduct.dataValues.products)
         let productQuantity = JSON.parse(purchasedProduct.dataValues.quantity)
         let productSize = purchasedProduct.dataValues.size
-        purchasedProductsData.push({ products: productInfo, productQuantity, productSize })
-    })
-    console.log('check: ', purchasedProductsData[2])
+        let pro_OrderDate = dayjs(productInfo.createdAt).format('DD/MM/YYYY HH:mm:ss')
 
-    res.render('user/myInfo.ejs', { myInfo: myInfo, cart: cart, cartCount, purchasedProductsData: purchasedProductsData })
+        purchasedProductsData.push({
+            products: productInfo,
+            productQuantity: productQuantity,
+            productSize: productSize,
+            pro_OrderDate: pro_OrderDate
+        })
+    })
+    // console.log('check: ', purchasedProductsData[2])
+
+    res.render('user/myInfo.ejs', { myInfo: myInfo, cart: cart, cartCount, purchasedProductsData: purchasedProductsData, })
 }
 const postEditUser = async (req, res) => {
     try {

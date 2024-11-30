@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+/* Header Styles */
 #header {
     position: fixed;
     top: 0;
@@ -10,16 +11,17 @@
     justify-content: space-between;
     padding: 20px 80px;
     background-color: #E3E6F3;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06)
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
+/* Logo */
 #header a img {
     width: 140px;
     height: 60px;
     padding-right: 10px;
 }
 
-/* search */
+/* Search Section */
 .search {
     border: 1px solid #ccc;
     padding: 5px 3px;
@@ -34,7 +36,7 @@
     position: absolute;
     top: 4px;
     padding-left: 5px;
-    width: 343px;
+    width: calc(100% - 65px);
     height: 38px;
     border: none;
 }
@@ -53,65 +55,11 @@
     cursor: pointer;
 }
 
-
+/* Navbar Styles */
 #navbar {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.icon-rounded {
-    display: inline-flex;
-    /* Để căn giữa icon */
-    justify-content: center;
-    /* Canh giữa ngang */
-    align-items: center;
-    /* Canh giữa dọc */
-    width: 30px;
-    /* Kích thước khung */
-    height: 30px;
-    /* Bằng chiều rộng để khung vuông */
-    border-radius: 50%;
-    /* Bo tròn khung */
-    background-color: #042220;
-    /* Màu nền khung (xanh lam) */
-    color: white;
-    /* Màu icon */
-    font-size: 24px;
-    /* Kích thước icon */
-    border: 2px solid #ffffff;
-    /* Viền trắng (tùy chọn) */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Hiệu ứng bóng đổ (tùy chọn) */
-    overflow: hidden;
-}
-
-#cart a i {
-    font-size: large;
-    margin-bottom: 5px;
-}
-
-#quantity {
-    background-color: red;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    position: absolute;
-    bottom: 20px;
-    right: 2px;
-    padding: 3px 5px;
-    font-size: 10px
-}
-
-#mobile {
-    display: none;
-    align-items: center
-}
-
-#close {
-    display: none
 }
 
 #navbar li {
@@ -125,7 +73,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #1a1a1a;
-    transition: 0.3s ease
+    transition: 0.3s ease;
 }
 
 #navbar li a:hover,
@@ -138,14 +86,82 @@
     content: " ";
     width: 30%;
     height: 2px;
-    background: 2px;
-    background-color: #088178;
+    background: #088178;
     position: absolute;
     bottom: -4px;
     left: 20px;
 }
 
-/* Phần button đăng nhập */
+/* Mobile Menu Icon */
+#mobile {
+    display: none;
+    align-items: center;
+    cursor: pointer;
+}
+
+#close {
+    display: none;
+}
+
+/* Icon Styles */
+.icon-rounded {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #042220;
+    color: white;
+    font-size: 24px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Cart Quantity Indicator */
+#cart {
+    position: relative;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#cart a {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+}
+
+#cart a i {
+    font-size: 24px;
+    position: relative;
+}
+
+/* Số lượng giỏ hàng - Desktop */
+#quantity {
+    position: absolute;
+    top: -8px;
+    right: -2px;
+    background-color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 20px;
+    /* Đặt chiều rộng để vòng tròn nhỏ gọn */
+    height: 20px;
+    font-size: 12px;
+    /* Kích thước chữ nhỏ hơn để phù hợp với vòng tròn */
+    font-weight: bold;
+    border: 2px solid #fff;
+    /* Thêm viền trắng để tạo điểm nhấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Hiệu ứng đổ bóng để nổi bật */
+}
+
+
+/* Button Styles */
 .btn-primary {
     background-color: #007bff;
     color: white;
@@ -160,29 +176,22 @@
     color: white;
 }
 
-/* Dropdown */
+/* Dropdown Menu */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Icon người dùng */
-/* Định dạng cho biểu tượng người dùng */
 #userIcon {
     font-size: 24px;
-    /* Kích thước biểu tượng */
     cursor: pointer;
-    /* Để người dùng nhận ra đây là một phần có thể bấm */
     transition: transform 0.3s ease;
-    /* Thêm hiệu ứng khi bấm */
 }
 
 #userIcon:hover {
     transform: scale(1.2);
-    /* Làm phóng to biểu tượng khi hover */
 }
 
-/* Định dạng cho menu xổ xuống */
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -208,4 +217,264 @@
 
 .dropdown-item:hover {
     background-color: #444;
+}
+
+
+
+/* Responsive Styles */
+@media (max-width: 1025px) {
+    #header {
+        padding: 15px 15px;
+    }
+
+    #header a img {
+        width: 100px;
+        height: 50px;
+    }
+
+    .search {
+        width: 250px;
+    }
+
+    #navbar {
+        display: flex;
+        width: 430px;
+        justify-content: space-between;
+    }
+
+    /* hiển thị lại thanh nav-bảr */
+    #navbar.active {
+        right: 0;
+    }
+
+    #navbar li {
+        padding: 20px 0;
+    }
+
+
+
+    #close {
+        display: block;
+        position: absolute;
+        top: -335px;
+        right: -5px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    #cart {
+        margin-left: 10px;
+        /* Giảm khoảng cách để giỏ hàng sát vào hơn */
+    }
+
+    #cart a i {
+        font-size: 22px;
+        /* Điều chỉnh kích thước biểu tượng trên màn hình nhỏ */
+    }
+
+    #quantity {
+        position: absolute;
+        top: -5px;
+        /* Điều chỉnh vị trí để phù hợp với kích thước biểu tượng nhỏ hơn */
+        right: -5px;
+        /* Đặt vị trí lệch sang bên phải */
+        width: 18px;
+        /* Kích thước nhỏ hơn để vừa với màn hình nhỏ */
+        height: 18px;
+        /* Kích thước nhỏ hơn để tạo thành hình tròn */
+        font-size: 10px;
+        /* Kích thước chữ nhỏ hơn để phù hợp với vòng tròn */
+        line-height: 18px;
+        /* Điều chỉnh để căn chỉnh số lượng vào giữa vòng tròn */
+        border: 2px solid #fff;
+        /* Viền trắng để nổi bật */
+    }
+
+    #hero {
+        margin-top: 80px;
+        height: 700px !important;
+    }
+}
+
+@media (max-width: 769px) {
+    #header {
+        padding: 15px 40px;
+    }
+
+    #header a img {
+        width: 100px;
+        height: 50px;
+    }
+
+    .search {
+        width: 250px;
+    }
+
+    #navbar {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 100vh;
+        width: 180px;
+        background-color: #E3E6F3;
+        box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+        padding: 30px 0 0 15px;
+    }
+
+    /* hiển thị lại thanh nav-bảr */
+    #navbar.active {
+        right: 0;
+    }
+
+    #navbar li {
+        padding: 20px 0;
+    }
+
+    #mobile {
+        display: flex;
+        width: 100px;
+        justify-content: space-between;
+    }
+
+    #mobile a i {
+        font-size: 40px;
+    }
+
+    #close {
+        display: block;
+        position: absolute;
+        top: -335px;
+        right: -5px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    #cart {
+        margin-left: 10px;
+        /* Giảm khoảng cách để giỏ hàng sát vào hơn */
+    }
+
+    #cart a i {
+        font-size: 22px;
+        /* Điều chỉnh kích thước biểu tượng trên màn hình nhỏ */
+    }
+
+    #quantity {
+        position: absolute;
+        top: -5px;
+        /* Điều chỉnh vị trí để phù hợp với kích thước biểu tượng nhỏ hơn */
+        right: -5px;
+        /* Đặt vị trí lệch sang bên phải */
+        width: 18px;
+        /* Kích thước nhỏ hơn để vừa với màn hình nhỏ */
+        height: 18px;
+        /* Kích thước nhỏ hơn để tạo thành hình tròn */
+        font-size: 10px;
+        /* Kích thước chữ nhỏ hơn để phù hợp với vòng tròn */
+        line-height: 18px;
+        /* Điều chỉnh để căn chỉnh số lượng vào giữa vòng tròn */
+        border: 2px solid #fff;
+        /* Viền trắng để nổi bật */
+    }
+
+    #bar {
+        font-size: 30px;
+    }
+
+    #hero {
+        margin-top: 80px;
+        height: 500px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .section-p1 {
+        padding: 40px 50px;
+    }
+
+    #hero {
+        margin: 0;
+    }
+
+    #header {
+        padding: 10px;
+        right: 0;
+    }
+
+    #header a img {
+        width: 80px;
+        height: 40px;
+    }
+
+    .search {
+        width: 200px;
+        height: 40px;
+    }
+
+    .search form input {
+        width: 132px;
+        height: 32px;
+        font-size: 10px;
+    }
+
+    .search form button {
+        width: 40px;
+        height: 28px;
+        font-size: 10px;
+    }
+
+    #mobile {
+        width: 70px;
+        display: flex;
+        justify-content: space-evenly;
+        position: relative;
+    }
+
+    #mobile a i {
+        font-size: 20px;
+    }
+
+    #mobile i {
+        font-size: 25px;
+    }
+
+    .quantity {
+        position: absolute;
+        top: -10px;
+        right: 30px;
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+        line-height: 16px;
+        color: red;
+    }
+
+    #navbar li a {
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    #cart {
+        margin-left: 5px;
+        position: relative;
+    }
+
+    #cart a i {
+        font-size: 20px;
+    }
+
+
 }

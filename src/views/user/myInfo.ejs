@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/products.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/reuse/pagination.css">
     <link rel="stylesheet" href="/css/user/myInfo.css">
 </head>
@@ -41,9 +40,7 @@
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         <%=cartCount%>
@@ -74,7 +71,7 @@
             <i id="bar" class="fas fa-outdent"></i>
         </div>
     </section>
-
+    <h3 class="my_info">My Infomations</h3>
     <table>
         <thead>
             <tr>
@@ -103,6 +100,7 @@
                 <td>
                     <%=myInfo.phone%>
                 </td>
+
                 <td class="actions">
                     <button class="edit-btn" data-id="<%= myInfo.id %>" data-name="<%= myInfo.name %>"
                         data-email="<%= myInfo.email %>" data-address="<%= myInfo.address %>"
@@ -114,21 +112,23 @@
         </tbody>
     </table>
 
-    <h3 class="purchased_products"> Purchased Products</h3>
-    <table id="purchased_products">
-        <th>
-            <tr>
-                <td>Id</td>
-                <td>Name</td>
-                <td>Image</td>
-                <td>Descriptions</td>
-                <td>Price</td>
-                <td>Size</td>
-                <td>Quantity</td>
-            </tr>
-        </th>
-        <tbody>
-            <%if(purchasedProductsData.length> 0){%>
+    <h3 class="purchased_products"> Purchased Products: </h3>
+    <%if(purchasedProductsData.length> 0){%>
+        <table id="purchased_products">
+            <th>
+                <tr>
+                    <td>Id</td>
+                    <td>Name</td>
+                    <td>Image</td>
+                    <td>Descriptions</td>
+                    <td>Price</td>
+                    <td>Size</td>
+                    <td>Quantity</td>
+                    <td>Order Date</td>
+                </tr>
+            </th>
+            <tbody>
+
                 <%purchasedProductsData.forEach(product=> {%>
                     <tr>
                         <td>
@@ -155,101 +155,105 @@
                         <td>
                             <%=product.productQuantity%>
                         </td>
+                        <td>
+                            <%=product.pro_OrderDate%>
+                        </td>
                     </tr>
                     <%})%>
-                        <%}else{%>
-                            <h3>there is no purchased product</h3>
-                            <%}%>
-        </tbody>
-    </table>
+            </tbody>
 
-    <!-- Modal for Edit -->
-    <div id="editModal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Edit User</h2>
-            <form id="editUserForm" action="/user/myInfo/editUser" method="post">
-                <input type="hidden" id="id_edit" name="id_edit">
+        </table>
+        <%}else{%>
+            <p class="title_noProduct">there is no purchased product</p>
+            <%}%>
 
-                <label for="name_edit">Name:</label>
-                <input type="text" id="name_edit" name="name_edit" required>
+                <!-- Modal for Edit -->
+                <div id="editModal" class="modal hidden">
+                    <div class="modal-content">
+                        <h2>Edit User</h2>
+                        <form id="editUserForm" action="/user/myInfo/editUser" method="post">
+                            <input type="hidden" id="id_edit" name="id_edit">
 
-                <label for="emai_edit">Emai:</label>
-                <input type="text" id="email_edit" name="email_edit" required>
+                            <label for="name_edit">Name:</label>
+                            <input type="text" id="name_edit" name="name_edit" required>
 
-                <label for="address_edit">Address:</label>
-                <textarea id="address_edit" name="address_edit" rows="4" required></textarea>
+                            <label for="emai_edit">Emai:</label>
+                            <input type="text" id="email_edit" name="email_edit" required>
 
-                <label for="phone_edit">Phone:</label>
-                <input type="text" id="phone_edit" name="phone_edit" required>
+                            <label for="address_edit">Address:</label>
+                            <textarea id="address_edit" name="address_edit" rows="4" required></textarea>
 
-                <button type="submit" class="save-btn">Save</button>
-                <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
-            </form>
-        </div>
-    </div>
+                            <label for="phone_edit">Phone:</label>
+                            <input type="text" id="phone_edit" name="phone_edit" required>
 
-    <!-- footer -->
-    <footer class="section-p1">
-
-        <div class="col">
-            <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
-            <h4>Contact</h4>
-            <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
-            <p><strong>Email: </strong>252quanghuy@gmail.com</p>
-            <p><strong>Phone:</strong>0813118974</p>
-            <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
-            <div class="follow">
-                <h4>Follow Me</h4>
-                <div class="icon">
-                    <a href="https://www.facebook.com/huydz.252">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-youtube"></i>
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
+                            <button type="submit" class="save-btn">Save</button>
+                            <button type="button" class="cancel-btn" id="cancelEditBtn">Cancel</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="sec">
-            <div class="col">
-                <h4>About</h4>
-                <a href="#">About Us</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms and Condition</a>
-                <a href="#">Contact Us</a>
-            </div>
+                <!-- footer -->
+                <footer class="section-p1">
 
-            <div class="col">
-                <h4>My Account</h4>
-                <a href="#">Sign In</a>
-                <a href="#">View Cart</a>
-                <a href="#">My Account</a>
-                <a href="#">My Wishlist</a>
-                <a href="#">Track my Order</a>
-                <a href="#">Help</a>
+                    <div class="col">
+                        <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
+                        <h4>Contact</h4>
+                        <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
+                        <p><strong>Email: </strong>252quanghuy@gmail.com</p>
+                        <p><strong>Phone:</strong>0813118974</p>
+                        <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
+                        <div class="follow">
+                            <h4>Follow Me</h4>
+                            <div class="icon">
+                                <a href="https://www.facebook.com/huydz.252">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <i class="fab fa-instagram"></i>
+                                    <i class="fab fa-twitter"></i>
+                                    <i class="fab fa-youtube"></i>
+                                    <i class="fab fa-pinterest-p"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
+                    <div class="sec">
+                        <div class="col">
+                            <h4>About</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Delivery Information</a>
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms and Condition</a>
+                            <a href="#">Contact Us</a>
+                        </div>
 
-            <div class="col install">
-                <h4>Install App</h4>
-                <p>From App Store or Google Play</p>
+                        <div class="col">
+                            <h4>My Account</h4>
+                            <a href="#">Sign In</a>
+                            <a href="#">View Cart</a>
+                            <a href="#">My Account</a>
+                            <a href="#">My Wishlist</a>
+                            <a href="#">Track my Order</a>
+                            <a href="#">Help</a>
 
-                <div class="row">
-                    <img src="/imgs/pay/app.jpg" alt="">
-                    <img src="/imgs/pay/play.jpg" alt="">
-                </div>
-                <p>Secured Payment Gateways</p>
-                <img src="/imgs/pay/pay.png" alt="">
-            </div>
-        </div>
-    </footer>
+                        </div>
+
+                        <div class="col install">
+                            <h4>Install App</h4>
+                            <p>From App Store or Google Play</p>
+
+                            <div class="row">
+                                <img src="/imgs/pay/app.jpg" alt="">
+                                <img src="/imgs/pay/play.jpg" alt="">
+                            </div>
+                            <p>Secured Payment Gateways</p>
+                            <img src="/imgs/pay/pay.png" alt="">
+                        </div>
+                    </div>
+                </footer>
 
 
-    <script src="/js/navbar.js"></script>
-    <script src="/js/user/myInfo.js"></script>
+                <script src="/js/navbar.js"></script>
+                <script src="/js/user/myInfo.js"></script>
 </body>
 
 </html>

@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
     <link rel="stylesheet" href="/css/admin/purchased_product.css">
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 </head>
 
 <body>
     <!-- Thanh tiêu đề (Header) -->
     <header class="admin-header">
+        <button class="toggle-button" onclick="toggleSidebar()">☰ Menu</button>
         <h1>Admin Dashboard</h1>
         <div class="admin-options">
             <span>Welcome, Admin</span>
@@ -23,74 +25,92 @@
     </header>
 
     <!-- Thanh điều hướng (Sidebar Menu) -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebarMenu">
         <ul>
             <li><a href="/admin/userForm"><i class="fas fa-users"></i> Users</a></li>
             <li><a href="/admin/productForm"><i class="fas fa-box"></i> Products</a></li>
             <li><a href="/admin/categoryForm"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="/admin/purchased_productForm"><i class="fas fa-shopping-cart"></i> Purchased Products</a></li>
+            <li class="sidebarClose hidden"><i class="fa-solid fa-x"></i> Close</li>
         </ul>
     </nav>
 
     <!-- Nội dung chính (Main Content) -->
     <div class="main-content">
         <div id="admin-users" class="content-section">
-
-            <h2>Manage Users</h2>
+            <h2>Manage Purchased Products</h2>
             <table>
                 <thead>
                     <tr>
                         <th>User ID</th>
-                        <th>User Name</th>
                         <th>Product ID</th>
                         <th>Product Name</th>
                         <th>Image</th>
-                        <th>Quantity</th>
-                        <th>Size</th>
-                        <th>Order Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%if(listData.length> 0){%>
-                        <%listData.forEach(data=> {%>
+                    <% if(listData.length> 0) { %>
+                        <% listData.forEach((data, index)=> { %>
                             <tr>
                                 <td>
-                                    <%=data.id_user%>
+                                    <%= data.id_user %>
                                 </td>
                                 <td>
-                                    <%=data.name_user%>
+                                    <%= data.id_pro %>
                                 </td>
                                 <td>
-                                    <%=data.id_pro%>
+                                    <%= data.product.name %>
                                 </td>
                                 <td>
-                                    <%=data.product.name%>
+                                    <img src="/imgs/products/<%= data.product.image_url %>"
+                                        alt="<%= data.product.name %>" style="width: 50px; height: 50px;">
                                 </td>
-                                <td>
-                                    <img src="/imgs/products/<%=data.product.image_url%>">
+                                <td class="actions">
+                                    <button class="view-details-btn" data-index="<%= index %>"
+                                        onclick="openDetailsModal(event)">View Details</button>
                                 </td>
-                                <td>
-                                    <%=data.quantity%>
-                                </td>
-                                <td>
-                                    <%=data.size%>
-                                </td>
-                                <th>
-                                    <%=data.order_date%>
-                                </th>
                             </tr>
-                            <%})%>
-                                <%}else{%>
-                                    <h3>No products have been purchased yet</h3>
-                                    <%}%>
+                            <% }) %>
+                                <% } else { %>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h3>No products have been purchased yet</h3>
+                                        </td>
+                                    </tr>
+                                    <% } %>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Details -->
+    <div id="detailsModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Purchased Product Details</h2>
+            <label for="view_user_name">User Name:</label>
+            <input type="text" id="view_user_name" readonly>
+
+            <label for="view_quantity">Quantity:</label>
+            <input type="text" id="view_quantity" readonly>
+
+            <label for="view_size">Size:</label>
+            <input type="text" id="view_size" readonly>
+
+            <label for="view_order_date">Order Date:</label>
+            <input type="text" id="view_order_date" readonly>
+
+            <button type="button" class="cancel-btn" onclick="closeDetailsModal()">Close</button>
         </div>
     </div>
 
 
     <!-- JavaScript -->
     <script src="/js/admin/admin.js"></script>
+    <script src="/js/admin/purchased_product.js"></script>
+    <script type="application/json" id="purchasedProductData">
+        <%- JSON.stringify(listData).replace(/</g, '\\u003c') %>
+    </script>
 </body>
 
 </html>

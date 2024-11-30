@@ -1,5 +1,11 @@
+.my_info {
+    margin-top: 150px;
+    margin-bottom: 30px;
+    justify-self: center;
+}
+
 table {
-    margin: 150px auto 100px auto;
+    margin: 0 auto 100px auto;
     justify-self: center;
     border-collapse: collapse;
     width: 1000px;
@@ -20,6 +26,11 @@ table td img {
 }
 
 .purchased_products {
+
+    justify-self: center;
+}
+
+.title_noProduct {
     justify-self: center;
 }
 

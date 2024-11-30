@@ -13,6 +13,7 @@
 <body>
     <!-- Thanh tiêu đề (Header) -->
     <header class="admin-header">
+        <button class="toggle-button" onclick="toggleSidebar()">☰ Menu</button>
         <h1>Admin Dashboard</h1>
         <div class="admin-options">
             <span>Welcome, Admin</span>
@@ -21,66 +22,73 @@
     </header>
 
     <!-- Thanh điều hướng (Sidebar Menu) -->
-
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebarMenu">
         <ul>
             <li><a href="/admin/userForm"><i class="fas fa-users"></i> Users</a></li>
             <li><a href="/admin/productForm"><i class="fas fa-box"></i> Products</a></li>
-            <li><a href="/admin/categoryForm" class="active"><i class="fas fa-list"></i> Categories</a></li>
+            <li><a href="/admin/categoryForm"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="/admin/purchased_productForm"><i class="fas fa-shopping-cart"></i> Purchased Products</a></li>
+            <li class="sidebarClose hidden"><i class="fa-solid fa-x"></i> Close</li>
         </ul>
     </nav>
-    <div class="container">
-        <h1>Category Management</h1>
-        <button id="addBtn" class="add-btn">Add Category</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Is Active</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% rows.forEach((category, index)=> { %>
-                    <tr>
-                        <td>
-                            <%= category.id %>
-                        </td>
-                        <td>
-                            <%= category.name %>
-                        </td>
-                        <td>
-                            <%= category.description %>
-                        </td>
-                        <td>
-                            <%= category.createdAt %>
-                        </td>
-                        <td>
-                            <%= category.updatedAt %>
-                        </td>
-                        <td>
-                            <%= category.is_active==1 ? "Active" : "Inactive" %>
-                        </td>
-                        <td class="actions">
-                            <button class="edit-btn" data-index="<%= index %>" data-id="<%= category.id %>"
-                                data-name="<%= category.name %>" data-description="<%= category.description %>"
-                                data-is-active="<%= category.is_active %>">
-                                Edit
-                            </button>
 
-                            <button class="delete-btn" data-index="<%= index %>" data-id="<%= category.id %>">
-                                Delete
-                            </button>
-                        </td>
+    <!-- Nội dung chính -->
+    <div class="main-content">
+        <div class="content-section">
+            <h1>Category Management</h1>
+            <button id="addBtn" class="add-btn">Add Category</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
                     </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% rows.forEach((category, index)=> { %>
+                        <tr>
+                            <td>
+                                <%= category.id %>
+                            </td>
+                            <td>
+                                <%= category.name %>
+                            </td>
+                            <td>
+                                <%= category.description %>
+                            </td>
+                            <td class="actions">
+                                <button class="view-btn" data-index="<%= index %>" onclick="openViewModal(event)">View
+                                    Details</button>
+                                <button class="edit-btn" data-index="<%= index %>" data-id="<%= category.id %>"
+                                    data-name="<%= category.name %>" data-description="<%= category.description %>"
+                                    data-is-active="<%= category.is_active %>">Edit</button>
+                                <button class="delete-btn" data-index="<%= index %>"
+                                    data-id="<%= category.id %>">Delete</button>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for Viewing Details -->
+    <div id="viewModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Category Details</h2>
+            <label for="view_created_at">Created At:</label>
+            <input type="text" id="view_created_at" readonly>
+
+            <label for="view_updated_at">Updated At:</label>
+            <input type="text" id="view_updated_at" readonly>
+
+            <label for="view_is_active">Is Active:</label>
+            <input type="text" id="view_is_active" readonly>
+
+            <button type="button" class="cancel-btn" onclick="closeViewModal()">Close</button>
+        </div>
     </div>
 
     <!-- Modal for Add -->
@@ -131,7 +139,30 @@
         </div>
     </div>
 
+    <!-- js -->
+    <script>
+        function openViewModal(event) {
+            const index = event.target.dataset.index;
+            const rows = JSON.parse(document.getElementById('categoryData').textContent);
+            const category = rows[index];
+
+            document.getElementById('view_created_at').value = category.createdAt;
+            document.getElementById('view_updated_at').value = category.updatedAt;
+            document.getElementById('view_is_active').value = category.is_active == 1 ? "Active" : "Inactive";
+
+            document.getElementById('viewModal').classList.remove('hidden');
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewModal').classList.add('hidden');
+        }
+    </script>
+    <script type="application/json" id="categoryData">
+        <%- JSON.stringify(rows).replace(/</g, '\\u003c') %>
+    </script>
+    <script src="/js/admin/admin.js"></script>
     <script src="/js/admin/category.js"></script>
+
 </body>
 
 </html>

@@ -10,7 +10,8 @@ const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
-const userRoutes = require('./routes/userRoute')
+const userRoutes = require('./routes/userRoutes')
+const pageRoutes = require('./routes/pageRouters')
 const authMiddleware = require('./middlewares/auth');
 
 
@@ -71,7 +72,8 @@ app.use('/', authRoutes);
 app.use('/', productRoutes);
 app.use('/', cartRoutes);
 app.use('/', adminRoutes);
-app.use('/', userRoutes)
+app.use('/', userRoutes);
+app.use('/', pageRoutes);
 
 app.listen(port, hostname, () => {
     console.log(`server running on {`, hostname, ',', port, '}');

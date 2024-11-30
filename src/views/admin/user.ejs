@@ -9,12 +9,14 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
     <link rel="stylesheet" href="/css/admin/user.css">
     <!-- Font Awesome -->
+    <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
 </head>
 
 <body>
     <!-- Thanh tiêu đề (Header) -->
     <header class="admin-header">
+        <button class="toggle-button" onclick="toggleSidebar()">☰ Menu</button>
         <h1>Admin Dashboard</h1>
         <div class="admin-options">
             <span>Welcome, Admin</span>
@@ -23,12 +25,13 @@
     </header>
 
     <!-- Thanh điều hướng (Sidebar Menu) -->
-    <nav class="sidebar">
+    <nav class="sidebar" id="sidebarMenu">
         <ul>
-            <li><a href="/admin/userForm" class="active"><i class="fas fa-users"></i> Users</a></li>
+            <li><a href="/admin/userForm"><i class="fas fa-users"></i> Users</a></li>
             <li><a href="/admin/productForm"><i class="fas fa-box"></i> Products</a></li>
             <li><a href="/admin/categoryForm"><i class="fas fa-list"></i> Categories</a></li>
             <li><a href="/admin/purchased_productForm"><i class="fas fa-shopping-cart"></i> Purchased Products</a></li>
+            <li class="sidebarClose hidden"><i class="fa-solid fa-x"></i> Close</li>
         </ul>
     </nav>
 
@@ -75,12 +78,11 @@
                 </tbody>
             </table>
         </div>
-
-
     </div>
 
 
     <!-- JavaScript -->
+    <script src="/js/admin/admin.js"></script>
     <script src="/js/admin/user.js"></script>
 </body>
 

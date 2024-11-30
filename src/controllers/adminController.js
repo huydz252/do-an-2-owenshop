@@ -35,7 +35,7 @@ const getProductForm = async (req, res) => {
                 is_active: pro.dataValues.is_active,
             })
         }
-        console.log('check: >>>>>>>>>>>>>>>>>>>>', data[0])
+        // console.log('check: >>>>>>>>>>>>>>>>>>>>', data[0])
         const categories = await getAllCategories(req, res)
         res.render('admin/product.ejs', { rows: data, categories: categories });
     } catch (error) {
@@ -92,7 +92,7 @@ const postEditProduct = async (req, res) => {
     }
     const imageUrl = `${req.file.filename}`;
     const is_active = (is_active_edit === 'true' || is_active_edit === true) ? 1 : 0;
-    console.log(id_edit, name_edit, description_edit, price_edit, stock_edit, category_id_edit, is_active_edit)
+    // console.log(id_edit, name_edit, description_edit, price_edit, stock_edit, category_id_edit, is_active_edit)
 
     try {
         const updatedProduct = await Product.update(

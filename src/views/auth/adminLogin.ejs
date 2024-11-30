@@ -21,9 +21,14 @@
     <!-- css -->
     <link rel="stylesheet" href="/css/reuse/root.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/auth/login.css">
+
+    <style>
+        h1 {
+            font-size: 32px;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,11 +42,9 @@
         </div>
         <div>
             <ul id="navbar">
-                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li id="cart"><a href="/cart" id="lg-bag"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         0
@@ -62,8 +65,8 @@
     </section>
 
     <div class="container">
-        <h2>Admin Login</h2>
-        <p>Welcome back! Sir!!!</p>
+        <h1>Admin Login</h1>
+        <p>Welcome back! Admin!!!</p>
         <form action="/auth/adminLoginForm/adminLogin" method="POST" id="loginForm">
             <div class="form-group">
                 <label for="email">Email:</label>

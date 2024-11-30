@@ -8,7 +8,6 @@
     <!-- font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="/fontawesome-free-6.5.2-web/css/all.min.css">
-    <script src="https://kit.fontawesome.com/dad03e859c.js" crossorigin="anonymous"></script>
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +21,6 @@
     <link rel="stylesheet" href="/css/reuse/root.css">
     <link rel="stylesheet" href="/css/reuse/header-nav.css">
     <link rel="stylesheet" href="/css/reuse/footer.css">
-    <link rel="stylesheet" href="/css/reuse/resposive.css">
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 
@@ -40,9 +38,7 @@
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
                 <li><a href="/shop">Shop</a></li>
-                <li><a href="">Blog</a></li>
-                <li><a href="">About</a></li>
-                <li><a href="">Contact</a></li>
+                <li><a href="/contact">Contact</a></li>
                 <li id="cart"><a href="/cart" id="lg-bag" class="active"><i class="fal fa-shopping-bag"></i></a>
                     <span id="quantity">
                         <%=cartCount%>
@@ -74,7 +70,7 @@
         </div>
     </section>
     <!-- Cart Page -->
-    <section id="cart_content" class="section-p1">
+    <section id="cart_content_desktop" class="section-p1">
         <!-- top -->
         <section id="page-header" class="about-header">
             <span><a href="/"><i class="fa-solid fa-house" style="color: #000000;"></i> OWEN </a> / <a
@@ -97,47 +93,44 @@
                 </thead>
                 <tbody>
 
-                    <% for(var i=0; i < cart.length; i++) { %>
+                    <% cart.forEach(cart=> { %>
                         <tr>
-                            <td id="delete-all">
-                                <a href="/cart/deleteProduct/<%=cart[i].id%>"><i
-                                        class="fa-regular fa-trash-can"></i></a>
+                            <td id="delete-all_desktop">
+                                <a href="/cart/deleteProduct/<%=cart.id%>"><i class="fa-regular fa-trash-can"></i></a>
                             </td>
                             <td>
-                                <a href="/shop/proDetails/<%=cart[i].id%>"><img
-                                        src="/imgs/products/<%=cart[i].image_url%>" alt=""></a>
+                                <a href="/shop/proDetails/<%=cart.id%>"><img src="/imgs/products/<%=cart.image_url%>"
+                                        alt=""></a>
                             </td>
                             <td>
-                                <%=cart[i].name%>
+                                <%=cart.name%>
                             </td>
                             <td>
-                                $<%=cart[i].price%>
+                                $<%=cart.price%>
                             </td>
                             <td>
-                                <div class="quantity-selector">
-                                    <button type="button" class="decrease" class="btnHover" data-id="<%= cart[i].id %>"
-                                        data-price="<%= cart[i].price %>"
-                                        data-quantity="<%= cart[i].quantity %>">-</button>
-                                    <input class="count" type="number" value="<%=cart[i].quantity%>" min="0">
-                                    <button type="button" class="increase" class="btnHover" data-id="<%= cart[i].id %>"
-                                        data-price="<%= cart[i].price %>"
-                                        data-quantity="<%= cart[i].quantity%>">+</button>
+                                <div class="quantity-selector_desktop">
+                                    <button type="button" class="decrease_desktop btnHover" data-id="<%= cart.id %>"
+                                        data-price="<%= cart.price %>" data-quantity="<%= cart.quantity %>">-</button>
+                                    <input class="count_desktop" type="number" value="<%=cart.quantity%>" min="0">
+                                    <button type="button" class="increase_desktop btnHover" data-id="<%= cart.id %>"
+                                        data-price="<%= cart.price %>" data-quantity="<%= cart.quantity%>">+</button>
                                 </div>
                             </td>
                             <td>
                                 <span>
-                                    <%=cart[i].size%>
+                                    <%=cart.size%>
                                 </span>
                             </td>
                             <td>
-                                <span class="total-price-product">$<%=cart[i].quantity*cart[i].price%></span>
+                                <span class="total-price-product_desktop">$<%=cart.quantity*cart.price%></span>
                             </td>
-                            <td class="check">
-                                <input type="checkbox" class="product-checkbox" data-id="<%= cart[i].id %>"
-                                    data-price="<%= cart[i].price %>" data-quantity="<%= cart[i].quantity %>" />
+                            <td class="check_desktop">
+                                <input type="checkbox" class="product-checkbox_desktop" data-id="<%= cart.id %>"
+                                    data-price="<%= cart.price %>" data-quantity="<%= cart.quantity %>" />
                             </td>
                         </tr>
-                        <%}%>
+                        <%})%>
                             <%}else{%>
                                 <h3>There are no products</h3>
                                 <%}%>
@@ -148,127 +141,117 @@
     </section>
 
     <!-- Cart Add -->
-    <section id="cart-add" class="section-p1">
-        <div class="coupon">
-            <!-- <div>
-                <h4>Apply coupon</h4>
-                <input type="text" placeholder="Enter discount code">
-                <button>Apply</button>
-            </div> -->
+    <section id="cart-add_desktop" class="section-p1">
+        <div class="coupon_desktop">
             <div>
                 <h4>Total Cart</h4>
-                <table class="totalCart">
+                <table class="totalCart_desktop">
 
-                    <span id="total-price-cart">
+                    <span id="total-price-cart_desktop">
 
                     </span>
                 </table>
-                <button id="openModalBtn" class="btnHover">checkout</button>
+                <button id="openModalBtn_desktop" class="btnHover" type="button">Checkout</button>
             </div>
-            <div class="save">
+            <div class="save_desktop">
                 <!-- <button class="btn-green" id="pay-all">PAY ALL</button> -->
             </div>
         </div>
-        <div id="paymentModal" class="modal hidden">
-            <div class="modal-content">
-                <span class="close" id="closeModalBtn">&times;</span>
-                <h3>Payment Information</h3>
-                <div class="form-container">
-                    <!-- info -->
-                    <form action="/cart/pay" method="POST">
-                        <input type="number" name="id_user" value="<%=myInfo.id%>" hidden>
-                        <div>
-                            <div class="form-group">
-                                <label for="name">Your Name:</label>
-                                <input type="text" id="name" name="name_pay" placeholder="Enter your name" required
-                                    value="<%=myInfo.name%>">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Your Phone Number:</label>
-                                <input type="text" id="phone" name="phone_pay" placeholder="Enter your phone number"
-                                    required value="<%=myInfo.phone%>">
-                                <h5>We will call you when your order is about to be delivered</h5>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Your Address:</label>
-                                <textarea id="address" rows="3" name="address_pay" placeholder="Enter your Address"
-                                    required><%=myInfo.address%></textarea>
-                            </div>
+    </section>
 
+
+    <div id="paymentModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h3>Payment Information</h3>
+            <div class="form-container">
+                <!-- info -->
+                <form action="/cart/pay" method="POST">
+                    <input type="number" name="id_user" value="<%=myInfo.id%>" hidden>
+                    <div>
+                        <div class="form-group" hidden>
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="name_pay" placeholder="Enter your name" required
+                                value="<%=myInfo.name%>">
                         </div>
-                        <!-- productChecked -->
-                        <div class="product-checked">
+                        <div class="form-group">
+                            <label for="phone">Your Phone Number:</label>
+                            <input type="text" id="phone" name="phone_pay" placeholder="Enter your phone number"
+                                required value="<%=myInfo.phone%>">
+                            <h5>We will call you when your order is about to be delivered</h5>
                         </div>
-                        <div class="modal-footer">
-                            <span id="total-price-pay"></span>
-                            <button class="btn btn-success" type="submit">Pay</button>
-                            <button class="btn btn-danger" id="closeFooterBtn">Close</button>
+                        <div class="form-group">
+                            <label for="address">Your Address:</label>
+                            <textarea id="address" rows="3" name="address_pay" placeholder="Enter your Address"
+                                required><%=myInfo.address%></textarea>
                         </div>
-                    </form>
-                </div>
+
+                    </div>
+                    <!-- productChecked -->
+                    <div class="product-checked">
+                    </div>
+                    <div class="modal-footer">
+                        <span id="total-price-pay"></span>
+                        <button class="btn btn-success" type="submit" id="payFooterBtn">Pay</button>
+                        <button class="btn btn-danger" id="closeFooterBtn" type="button">Close</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
     </div>
 
-    <!-- footer -->
-    <footer class="section-p1">
+    <section id="cart_content_mobile">
+        <%if(cart.length>0){%>
+            <%cart.forEach(cart=> {%>
+                <div class="pro">
+                    <div class="div_pro_check">
+                        <div class="check">
+                            <input type="checkbox" class="product-checkbox_mobile" data-id="<%= cart.id %>"
+                                data-price="<%= cart.price %>" data-quantity="<%= cart.quantity %>" />
+                        </div>
+                        <td id="delete-all_mobile">
+                            <a href="/cart/deleteProduct/<%=cart.id%>"><i class="fa-regular fa-trash-can"></i></a>
+                        </td>
+                    </div>
+                    <div class="div_pro_info">
+                        <img src="imgs/products/<%=cart.image_url%>">
+                        <div class="pro_info">
+                            <p class="pro_name">
+                                <%=cart.name%>
 
-        <div class="col">
-            <a href="#"><img class="logo" src="/imgs/logo/logo.png"></a>
-            <h4>Contact</h4>
-            <p><strong>Address:<strong>Viet Nam, Da Nang, Ngu Hanh Son</p>
-            <p><strong>Email: </strong>252quanghuy@gmail.com</p>
-            <p><strong>Phone:</strong>0813118974</p>
-            <p><strong>Hours:</strong>10.00 - 18.00, Mon - Sat</p>
-            <div class="follow">
-                <h4>Follow Me</h4>
-                <div class="icon">
-                    <a href="https://www.facebook.com/huydz.252">
-                        <i class="fab fa-facebook-f"></i>
-                        <i class="fab fa-instagram"></i>
-                        <i class="fab fa-twitter"></i>
-                        <i class="fab fa-youtube"></i>
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
+                            </p>
+                            <p>
+                                Size: <%=cart.size%>
+                            </p>
+                            <div class="price-quantity">
+                                <p>
+                                    $<%=cart.price%>
+                                </p>
+                                <div class="quantity-selector_mobile">
+                                    <button type="button" class="decrease_mobile btnHover" data-id="<%= cart.id %>"
+                                        data-price="<%= cart.price %>" data-quantity="<%= cart.quantity %>">-</button>
+                                    <input class="count" type="number" value="<%=cart.quantity%>" min="0">
+                                    <button type="button" class="increase_mobile btnHover" data-id="<%= cart.id %>"
+                                        data-price="<%= cart.price %>" data-quantity="<%= cart.quantity%>">+</button>
+                                </div>
+                            </div>
+                            <span class="total-price-product_mobile">Total: $<%= cart.price * cart.quantity %></span>
+
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <%})%>
+                    <%}%>
+    </section>
+    <section id="cart-add_mobile">
+        <h3>
+            <span id="total-price-cart_mobile">
 
-        <div class="sec">
-            <div class="col">
-                <h4>About</h4>
-                <a href="#">About Us</a>
-                <a href="#">Delivery Information</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms and Condition</a>
-                <a href="#">Contact Us</a>
-            </div>
+            </span>
+        </h3>
+        <button id="openModalBtn_mobile" class="btnHover" type="button">Checkout</button>
+    </section>
 
-            <div class="col">
-                <h4>My Account</h4>
-                <a href="#">Sign In</a>
-                <a href="#">View Cart</a>
-                <a href="#">My Account</a>
-                <a href="#">My Wishlist</a>
-                <a href="#">Track my Order</a>
-                <a href="#">Help</a>
-
-            </div>
-
-            <div class="col install">
-                <h4>Install App</h4>
-                <p>From App Store or Google Play</p>
-
-                <div class="row">
-                    <img src="/imgs/pay/app.jpg" alt="">
-                    <img src="/imgs/pay/play.jpg" alt="">
-                </div>
-                <p>Secured Payment Gateways</p>
-                <img src="/imgs/pay/pay.png" alt="">
-            </div>
-        </div>
-    </footer>
 
     <script src="/js/cart.js"></script>
     <script src="/js/navbar.js"></script>

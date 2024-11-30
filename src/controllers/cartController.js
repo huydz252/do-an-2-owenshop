@@ -53,21 +53,16 @@ const deleteProductCart = (req, res) => {
     res.redirect('/cart')
 }
 
-const updateCartTotal = async (req, res) => {
-    //lấy cả id, checked để sau update tính năng thanh toán --> có hiện các sp đã checked
-    let { id, total, checked } = req.body
-    req.session.totalPrice = total
-    let product = req.session.cart.find(item => item.id == id)
-    if (product) {
-        product.checked = checked
-    }
-    return res.json({ success: true, id: id, total: total, checked: checked })
-}
+
 
 const updateCartQuantity = async (req, res) => {
-    const { id, quantity } = req.body
-    let product = req.session.cart.find(item => item.id === id)
+    const id = parseInt(req.body.id)
+    const quantity = parseInt(req.body.quantity)
+    console.log('check quantity: ', quantity, 'check id: ', id)
+    let product = req.session.cart.find(item => item.id == id)
     product.quantity = quantity
+    console.log('check product: ', product)
+
     if (product) {
         product.quantity = quantity;
         if (product.checked) {
@@ -78,14 +73,36 @@ const updateCartQuantity = async (req, res) => {
 
 }
 
-const getCheckedProducts = async (req, res) => {
-    if (req.session.cart) {
-        const checkedProducts = req.session.cart.filter(check => check.checked == true)
-        return res.json({ success: true, checkedProducts: checkedProducts })
-    } else {
-        return res.status(400).json({ success: false, message: 'Cart is empty or not initialized' })
+const updateCheckedProducts = async (req, res) => {
+    const checked = req.body.checked;
+    const id = parseInt(req.body.id);
+    let cart = req.session.cart;
+
+    const checkedProduct = cart.find(pro => pro.id == id);
+
+    if (checkedProduct) {
+        checkedProduct.checked = checked;
+        console.log('check updateCheckedProducts: ', checkedProduct)
+        // Lưu lại session sau khi cập nhật
+        req.session.save(err => {
+            if (err) {
+                console.error('Error saving session:', err);
+                return res.status(500).json({ success: false, error: 'Unable to save session' });
+            }
+            return res.json({ success: true, message: 'Checked status updated successfully' });
+        });
     }
+
+};
+
+
+const getCheckedProducts = async (req, res) => {
+    const cart = req.session.cart || []; // Lấy giỏ hàng từ session hoặc mảng rỗng nếu giỏ hàng không tồn tại
+    const checkedProducts = cart.filter(product => product.checked == true);
+    console.log('check checkedProducts: ', checkedProducts);
+    return res.json({ success: true, checkedProducts });
 }
+
 const postPay = async (req, res) => {
     try {
         // Lấy dữ liệu từ request
@@ -165,10 +182,23 @@ const postPay = async (req, res) => {
         }
 
         // Phản hồi thành công
-        return res.render('cart/cart_success.ejs')
+
+        // Tính toán số lượng giỏ hàng (nếu có session)
+        const cartCount = req.session && req.session.user ? updateCartNumber(req, res) : 0;
+
+        return res.render('cart/cart_success.ejs', {
+            cartCount,
+            user: req.session && req.session.user ? req.session.user : null // Người dùng (nếu có)
+        });
     } catch (error) {
         console.error('Error processing payment:', error);
-        return res.render('cart/cart_failure.ejs')
+        // Tính toán số lượng giỏ hàng (nếu có session)
+        const cartCount = req.session && req.session.user ? updateCartNumber(req, res) : 0;
+
+        return res.render('cart/cart_failure.ejs', {
+            cartCount,
+            user: req.session && req.session.user ? req.session.user : null // Người dùng (nếu có)
+        });
     }
 };
 
@@ -176,6 +206,6 @@ const postPay = async (req, res) => {
 
 module.exports = {
     getCart,
-    deleteProductCart, updateCartTotal, updateCartQuantity,
-    getCheckedProducts, postPay
+    deleteProductCart, updateCartQuantity,
+    getCheckedProducts, postPay, updateCheckedProducts
 }
